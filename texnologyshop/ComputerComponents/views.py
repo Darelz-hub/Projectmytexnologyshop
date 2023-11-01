@@ -5,5 +5,9 @@ from django.shortcuts import render
 def index(request):
     return HttpResponse('Страница про компоненты')
 
-def videocard(request, id_cc):
-    return HttpResponse(f'Видео карта {id_cc}')
+def videocard(request):
+    data = {
+        'title': 'Videocard',
+        'menu': ['About','Page1','Page3']
+    }
+    return render(request,'computercomponents/index.html',data)

@@ -3,5 +3,5 @@ import ComputerComponents.views as components
 
 
 urlpatterns = [
-    path('videocard/<int:id_cc>/', components.videocard)
+    path('videocard/', components.videocard)
 ]
