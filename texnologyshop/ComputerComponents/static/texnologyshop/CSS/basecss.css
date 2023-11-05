@@ -1,0 +1,10 @@
+body{
+background-color: blue;
+
+background: url('/static/Image/technology.jpg');
+}
+
+.mainimage{
+#background: blue;
+background-image: url('technology.jpg');
+}

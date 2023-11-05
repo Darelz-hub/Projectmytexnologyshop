@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<main class="info_component">
+    <link rel="stylesheet" href="{% static 'computercomponents/CSS/info_component.css'%}">
+    <div class='middle'>
+        <ul class="inl">
+            {% for el in menu %}
+            <li>{{el}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</main>
+{% endblock %}
