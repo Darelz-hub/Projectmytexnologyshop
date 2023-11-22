@@ -3,14 +3,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'texnologyshop/CSS/basecss.css' %}">
+    <link rel="stylesheet" href="{% static 'computercomponents/CSS/main.css'%}">
     <title>Title</title>
 </head>
 <body>
 <header>
-    <div class="mainimage">
-        <p>UHHHH</p>
-    </div>
+    <nav class="one">
+
+        <ul>
+            <li><a href="#"><i class="fa fa-home fa-fw"></i>TexnologyShop</a></li>
+            <li><a href="#">Computers</a></li>
+            <li>
+                <a href="http://127.0.0.1:8000/computercomponent/documentation">Documentation</a>
+            </li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About us</a></li>
+            <li>
+      <span class="d7">
+        <form>
+          {% csrf_token %}
+          <input type="text" name="search_field" placeholder="Search">
+
+          <button type="submit"></button>
+        </form>
+      </span>
+
+            </li>
+
+            <span class="account">
+    <li><a href="#">Sing up</a></li>
+    <li><a href="#">Sing in</a></li>
+      </span>
+
+        </ul>
+    </nav>
 </header>
 {% block content %} {% endblock %}
 <footer>

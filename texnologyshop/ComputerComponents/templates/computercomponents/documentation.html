@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{% load static %}
+<main>
+    <link rel="stylesheet" href="{% static 'computercomponents/CSS/documentation.css'%}">
+    <h1 class="title">{{response.title}}</h1>
+    <p>{{response.content}}</p>
+
+</main>
+{% endblock %}

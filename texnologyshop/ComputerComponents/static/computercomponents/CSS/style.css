@@ -1,0 +1,16 @@
+nav {
+  display: block;
+  margin-left: 50px;
+}
+.one ul {
+  padding: 1em 0;
+}
+.one a {
+  padding: 1em;
+
+  color: #000;
+}
+.one a:hover {background: #330031; color: #fff}
+.one li {
+  display: inline;
+}

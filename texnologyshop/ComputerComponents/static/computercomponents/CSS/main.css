@@ -1,0 +1,71 @@
+nav {
+  display: block;
+  margin-left: 50px;
+}
+.one ul {
+  padding: 1em 0;
+}
+.one a {
+  padding: 1em;
+
+  color: #000;
+}
+.one a:hover {background: #330031; color: #fff}
+.one li {
+  display: inline;
+}
+.account {
+margin-right: 50px;
+margin-top: 15px;
+float:right;
+}
+
+
+/*field search*/
+
+form {
+  position: relative;
+
+  margin: 0 auto;
+  display: inline;
+}
+.d7 ::placeholder{
+  color:#fff;
+}
+
+.d7 form {
+  width: auto;
+  margin-right: 30px;
+}
+.d7 input {
+  width: 250px;
+  height: 42px;
+  padding-left: 15px;
+  border-radius: 42px;
+  border: 2px solid #fff;
+  background: #CCCEFF;
+  outline: none;
+  position: relative;
+  transition: .3s linear;
+}
+.d7 input:focus {
+  width: 300px;
+}
+.d7 button {
+  width: 42px;
+  height: 42px;
+  background: none;
+  border: none;
+  position: absolute;
+  top: -2px;
+  right: 0;
+}
+
+.d7 button:before{
+  content: "\🔍︎";
+  font-family: FontAwesome;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  font-size: 2em;
+  color: #fff;
+}
