@@ -4,3 +4,7 @@
 Дз 48 создал html страницу для приложения computercomponents 01. 11.2023 второй коммит
 
 Выполнил дз 49-50 сделал динамический переход между страницами, как на уроке, подключил статические файлы, сделал задний фон и горизонтальное меню третий коммит
+
+
+Выполнил дз 51 поработал с API WIKIMEDIA с расширением TextExtracts, благодаря ему взял информацию, что такое CPU
+ДЗ 52 https://www.figma.com/file/hfTjlmEM51bwhghfv7hQlq/TEXNOSHOP?type=design&node-id=0-1&mode=design&t=MILA5LyMZyQ9ADkQ-0
