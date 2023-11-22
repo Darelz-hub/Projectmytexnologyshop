@@ -7,4 +7,6 @@
 
 
 Выполнил дз 51 поработал с API WIKIMEDIA с расширением TextExtracts, благодаря ему взял информацию, что такое CPU четвёртый коммит
+
+
 ДЗ 52 https://www.figma.com/file/hfTjlmEM51bwhghfv7hQlq/TEXNOSHOP?type=design&node-id=0-1&mode=design&t=MILA5LyMZyQ9ADkQ-0
