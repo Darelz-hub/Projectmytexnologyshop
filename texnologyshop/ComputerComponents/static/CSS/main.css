@@ -1,3 +1,6 @@
+footer{
+margin-top: 5%;
+}
 nav {
   display: block;
   margin-left: 50px;
@@ -68,4 +71,24 @@ form {
   padding-bottom: 30px;
   font-size: 2em;
   color: #fff;
+}
+/*documentationmain.css
+
+.Image{
+height: 400px;
+width: 400px;
+}
+.documentationmain-image{
+display: inline-block;
+}
+.documentationmain-image-center{
+display: block;
+margin-left: 5%;
+margin-right: 5%;
+margin-top: 5%;
+}
+*/
+/* documentation */
+.documentation-text{
+font-size: 1.5rem;
 }

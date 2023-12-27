@@ -1,0 +1,12 @@
+.title{
+text-align: center;
+font-size: 32px;
+/*color: blue;*/
+font-family: Verdana;
+}
+.documentation-text{
+font-size: 1.5rem;
+margin-left: 5%;
+margin-right: 5%;
+font-family: Inria Sans;
+}

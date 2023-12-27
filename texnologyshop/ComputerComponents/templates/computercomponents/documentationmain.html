@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+
+<main>
+    <link rel="stylesheet" href="{% static '/CSS/documentationmain.css'%}">
+    <form method="POST" action="../document/documentation/">
+        {% csrf_token %}
+        <div class="documentationmain-image-center">
+            <div class="documentationmain-image">
+                <button name="name" value="Central_processing_unit"><img class="Image" src="{% static 'img/cpu.jpg' %}"
+                                                                         alt="CPU">
+                    <p>CPU</p>
+                </button>
+                <button name="name" value="Graphics_card"><img class="Image"
+                                                               src="{% static 'img/videocard.jpg' %}"
+                                                               alt="VIDEO CARD">
+                    <p>VIDEO CARD</p>
+                </button>
+                <button name="name" value="Random-access_memory"><img class="Image" src="{% static 'img/RAM.png' %}"
+                                                                      alt="RAM">
+                    <p>RAM</p>
+                </button>
+                <button name="name" value="Power_supply_unit_(computer)"><img class="Image"
+                                                                              src="{% static 'img/COMPUTER_POWER_SUPPLY.jpg' %}"
+                                                                              alt="COMPUTER POWER SUPPLY">
+                    <p>COMPUTER POWER SUPPLY</p>
+                </button>
+                <button name="name" value="Solid-state_drive"><img class="Image" src="{% static 'img/SSD.jpg' %}"
+                                                                   alt="SSD">
+                    <p>SSD</p>
+                </button>
+                <button name="name" value="Hard_disk_drive"><img class="Image" src="{% static 'img/HDD.jpg' %}"
+                                                                 alt="HDD">
+                    <p>HDD</p>
+                </button>
+                <button name="name" value="Motherboard"><img class="Image"
+                                                             src="{% static 'img/MOTHERBOARD.jpg' %}"
+                                                             alt="MOTHERBOARD">
+                    <p>MOTHERDOARD</p>
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
+{% endblock %}
