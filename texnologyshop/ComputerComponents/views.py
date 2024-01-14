@@ -33,7 +33,7 @@ class DocumentationMain(View):
 
 
 class Documentation(View):
-    def get_documentation(self, request):
+    def post(self, request):
         # ваша логика для получения данных о фильме из API
         if request.method == 'POST':
             name = request.POST.get('name', 'Central_processing_unit')
@@ -44,12 +44,8 @@ class Documentation(View):
             indexkey = list(req['query']['pages'])[0]  # Берем ключ, который состоит из цифр в словаре pages
             result.update({'title': req['query']['pages'][indexkey]['title'],
                            'content': req['query']['pages'][indexkey]['extract']})
-            return {'response': result}
+            return render(request, 'computercomponents/documentation.html', {'response': result})
         return {'response': 'STOP'}
-
-    def get(self, request):
-        data = self.get_documentation(request)
-        return render(request, 'computercomponents/documentation.html', data)
 
 
 # def get_documentation(request):
