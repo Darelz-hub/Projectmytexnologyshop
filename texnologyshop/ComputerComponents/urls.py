@@ -2,7 +2,8 @@ from django.urls import path, re_path
 import ComputerComponents.views as components
 
 urlpatterns = [
-    path('', components.main),
+    path('', components.MainPage.as_view()),
+    #path('', components.main),
     # path('videocard/', components.videocard),
     # re_path(r"^videocardyear/(?P<year>[0-9]{4})/$", components.videocardyear),
     path('test/', components.test),

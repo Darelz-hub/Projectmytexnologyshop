@@ -2,7 +2,7 @@ import requests
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views import View
-
+from ComputerComponents.models import Product, Product_Stock
 
 # Create your views here.
 # def index(request):
@@ -23,8 +23,13 @@ from django.views import View
 #     else:
 #         raise Http404('<h1>Ошибка 404</h1>')
 #
-def main(request):
-    return render(request, f'computercomponents/main.html')
+
+class MainPage(View):
+    def get(self, request):
+        products = Product.objects.all()
+        counts = Product_Stock.objects.all()
+        data = {'products': products, 'counts': counts}
+        return render(request, f'computercomponents/main.html',data)
 
 
 class DocumentationMain(View):
@@ -46,6 +51,7 @@ class Documentation(View):
                            'content': req['query']['pages'][indexkey]['extract']})
             return render(request, 'computercomponents/documentation.html', {'response': result})
         return {'response': 'STOP'}
+
 
 
 # def get_documentation(request):
