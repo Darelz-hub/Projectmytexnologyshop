@@ -24,15 +24,17 @@ from ComputerComponents.models import Product, Product_Stock
 #         raise Http404('<h1>Ошибка 404</h1>')
 #
 
-class MainPage(View):
+class MainPage(View): # основная страница при загрузке сайта
     def get(self, request):
-        products = Product.objects.all()
-        counts = Product_Stock.objects.all()
-        data = {'products': products, 'counts': counts}
-        return render(request, f'computercomponents/main.html',data)
+        laptops = Product.objects.all().filter(type_product='Laptop', is_published=True) # ноутбкуки из бд
+        pcs = Product.objects.all().filter(type_product='pc') # Компьютеры из бд
+        components = Product.objects.all().filter(type_product='components') # все компьютерные компоненты из бд
+        counts = Product_Stock.objects.all() # цена на каждый товар  для всех трёх таблиц
+        data = {'laptops': laptops, 'counts': counts, 'pcs': pcs, 'components': components}
+        return render(request, 'computercomponents/main.html', data)
 
 
-class DocumentationMain(View):
+class DocumentationMain(View): # основная страница
     def get(self, request):
         return render(request, 'computercomponents/documentationmain.html')
 

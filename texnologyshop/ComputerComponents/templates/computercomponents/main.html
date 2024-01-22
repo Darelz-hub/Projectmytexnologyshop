@@ -3,27 +3,90 @@
 {% load static %}
 <main>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-    <h1 class="title">Ноутбуки</h1>
-    {% for product in products %}
-    <div class="content">
-            <div class="border-padding">
-                <h1>{{product.name_ru}}</h1>
-                <img class="IMAGE" src="{{product.image.url}}" alt="this is trabl ">
-                <p class="content-text">{{product.content}}</p>
-                {% for count in counts %}
-                    {% if count.id_product_id == product.id %}
-                        <p class="count"> В наличии: {{count.count_product}} штук </p>
-                    {% endif %}
-                {% endfor %}
-                <div>
-                    <form class="buy" method="POST" action="#">
-                        {% csrf_token %}
-                        <p class="price">Цена:{{product.price}}</p>
-                        <button class="button-buy"> Купить </button>
-                    </form>
-                </div>
-            </div>
-    </div>
-    {% endfor %}
+    <h1 class="title"><a href="#"> Ноутбуки</a></h1>
+        {% for laptop in laptops %}
+            {% if forloop.counter < 4 %}
+                            <div class="content">
+                                    <div class="border-padding">
+                                        <h1>{{laptop.name_ru}}</h1>
+                                        {% if laptop.image %}
+                                            <img class="IMAGE" src="{{laptop.image.url}}" alt="this is trabl ">
+                                        {% else %}
+                                            <img class="IMAGE" src="{% static '../img/placeholder.png' %}" alt="placeholder">
+                                        {% endif %}
+                                        <p class="content-text">{{laptop.content}}</p>
+                                        {% for count in counts %}
+                                            {% if count.id_product_id == laptop.id %}
+                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div>
+                                            <form class="buy" method="POST" action="#">
+                                                {% csrf_token %}
+                                                <p class="price">Цена:{{laptop.price}}</p>
+                                                <button class="button-buy"> Купить </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+            {% endif %}
+        {% endfor %}
+
+    <h1 class="title"><a href="#">Компьютеры</a></h1>
+        {% for pc in pcs %}
+            {% if forloop.counter < 4 %}
+                            <div class="content">
+                                    <div class="border-padding">
+                                        <h1>{{pc.name_ru}}</h1>
+                                        {% if pc.image %}
+                                            <img class="IMAGE" src="{{pc.image.url}}" alt="this is trabl ">
+                                        {% else %}
+                                            <img class="IMAGE" src="{% static 'img/placeholder.png' %}" alt="this is trabl ">
+                                        {% endif %}
+                                        <p class="content-text">{{pc.content}}</p>
+                                        {% for count in counts %}
+                                            {% if count.id_product_id == pc.id %}
+                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div>
+                                            <form class="buy" method="POST" action="#">
+                                                {% csrf_token %}
+                                                <p class="price">Цена:{{pc.price}}</p>
+                                                <button class="button-buy"> Купить </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+            {% endif %}
+        {% endfor %}
+    <h1 class="title"><a href="#"> Компьютерные компоненты </a></h1>
+        {% for component in components %}
+            {% if forloop.counter < 4 %}
+                            <div class="content">
+                                    <div class="border-padding">
+                                        <h1>{{component.name_ru}}</h1>
+                                        {% if component.image %}
+                                            <img class="IMAGE" src="{{component.image.url}}" alt="this is trabl ">
+                                        {% else %}
+                                            <img class="IMAGE" src="{% static 'img/placeholder.png' %}" alt="this is trabl ">
+                                        {% endif %}
+                                        <p class="content-text">{{component.content}}</p>
+                                        {% for count in counts %}
+                                            {% if count.id_product_id == component.id %}
+                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div>
+                                            <form class="buy" method="POST" action="#">
+                                                {% csrf_token %}
+                                                <p class="price">Цена:{{component.price}}</p>
+                                                <button class="button-buy"> Купить </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+            {% endif %}
+        {% endfor %}
 </main>
 {% endblock %}

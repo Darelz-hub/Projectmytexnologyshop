@@ -13,7 +13,8 @@ class Product(models.Model):
     name = models.CharField(max_length=255, unique=True)
     name_ru = models.CharField(max_length=255, unique=True)
     type_product = models.TextField(max_length=255, default=None)
-    price = models.IntegerField()
+    type_product_components = models.CharField(max_length=255, blank=True, null=True)
+    price = models.PositiveIntegerField()
     content = models.TextField(max_length=1000)
     firm = models.CharField(max_length=255)
     image = models.ImageField(upload_to='imagedb/', null=True, max_length=255, validators=[
