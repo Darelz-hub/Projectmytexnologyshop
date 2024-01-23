@@ -3,42 +3,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'CSS/base.css'%}">
-<!--    <link rel="slylesheet" href="{% static 'CSS/documentationmain.css' %}">-->
+    <link rel="stylesheet" href="{% static 'CSS/menu.css'%}">
     <title>Title</title>
 </head>
 <body>
-<div>
-    <header>
-        <nav class="one">
-
+<header>
+    <a href="http://127.0.0.1:8000/"><img class="logo" src="{% static 'img/LOGO2.png' alt='LOGO' %}"></a>
+        <nav>
             <ul>
-                <li><a href="http://127.0.0.1:8000/"><i class="fa fa-home fa-fw"></i>TexnoShop</a></li>
-                <li><a href="#"><strong>Categories</strong></a></li>
-                <li>
-                    <a href="http://127.0.0.1:8000/document/"><strong>Documentation</strong></a>
+                <li><a href="#">Категории &bigtriangledown;</a>
+                    <ul>
+                        <li><a href="#" name="pc">ПК</a></li>
+                        <li><a href="#" name="Laptop">Ноутбуки</a></li>
+                        <li><a href="#" name="components">Компьютерные компоненты &bigtriangledown;</a>
+                            <ul>
+                                 <li><a href="#" name="pc">Видеокарта</a></li>
+                                 <li><a href="#" name="pc">Оперативная память</a></li>
+                                 <li><a href="#" name="pc">ЦП</a></li>
+                                 <li><a href="#" name="pc">Материнская плата</a></li>
+                                 <li><a href="#" name="pc">HHD</a></li>
+                                 <li><a href="#" name="pc">SSD</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
-                <li><a href="#">About us</a></li>
-                <li>
-      <span class="d7">
-        <form>
-          {% csrf_token %}
-          <input type="text" name="search_field" placeholder="Search">
-
-          <button type="submit"></button>
-        </form>
-      </span>
-
-                </li>
-                <span class="account">
-            <li><a href="#">Sing up</a></li>
-            <li><a href="#">Sing in</a></li>
-      </span>
-
+                <li><a href="http://127.0.0.1:8000/document/">Документация</a></li>
+                <li><a href="http://127.0.0.1:8000/document/{{name}} name='CAT'">О нас</a></li>
+                    <li><form class="d7">
+                      {% csrf_token %}
+                      <input type="text" name="search_field" placeholder="Search">
+                      <button type="submit"></button>
+                    </form></li>
+                <li><a href="#"><img src="{% static '' %}"></a></li>
+                <li><a href="#">Зарегистрироваться</a></li>
+                <li><a href="#">Войти</a></li>
             </ul>
         </nav>
-    </header>
-</div>
+</header>
+
 {% block content %} {% endblock %}
 <footer>
 <p>FOOOTER</p>
