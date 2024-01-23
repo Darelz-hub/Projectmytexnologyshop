@@ -10,3 +10,5 @@
 
 
 ДЗ 52 https://www.figma.com/file/hfTjlmEM51bwhghfv7hQlq/TEXNOSHOP?type=design&node-id=0-1&mode=design&t=MILA5LyMZyQ9ADkQ-0
+
+Смотреть комиты
