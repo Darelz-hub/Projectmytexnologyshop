@@ -29,7 +29,7 @@ class MainPage(View): # основная страница при загрузк�
         laptops = Product.objects.all().filter(type_product='Laptop', is_published=True) # ноутбкуки из бд
         pcs = Product.objects.all().filter(type_product='pc') # Компьютеры из бд
         components = Product.objects.all().filter(type_product='components') # все компьютерные компоненты из бд
-        counts = Product_Stock.objects.all() # цена на каждый товар  для всех трёх таблиц
+        counts = Product_Stock.objects.all() # количество товара
         data = {'laptops': laptops, 'counts': counts, 'pcs': pcs, 'components': components}
         return render(request, 'computercomponents/main.html', data)
 
@@ -54,46 +54,16 @@ class Documentation(View):
             return render(request, 'computercomponents/documentation.html', {'response': result})
         return {'response': 'STOP'}
 
+class Products(View):
+   def get(self, request, name):
+       products = Product.objects.all().filter(type_product_components=name)
+       counts = Product_Stock.objects.all()
+       title = Products.objects.filter(type_product_components=name).first()
+       data = {'products': products, 'counts': counts, 'title': title}
+       return render(request, 'computercomponents/products.html', data)
 
 
-# def get_documentation(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name', 'Central_processing_unit')
-#         result = {}
-#         req = requests.post(
-#             f'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=2&titles={name}&explaintext=1&format=json')
-#         req = req.json()
-#         indexkey = list(req['query']['pages'])[0]  # Берем ключ, который состоит из цифр в словаре pages
-#         result.update({'title': req['query']['pages'][indexkey]['title'],
-#                        'content': req['query']['pages'][indexkey]['extract']})
-#         return {'response': result}
-#     return {'response': ''}
-#
-#
-# def documentationmain(request):
-#     # data = get_documentation(request)
-#     return render(request, f'computercomponents/documentationmain.html')
-#
-#
-# def documentation(request):
-#     data = get_documentation(request)
-#     return render(request, f'computercomponents/documentation.html', data)
 
-
-# def components_pages(request, name_page):
-#     data = get_documentation(request)
-#     if name_page in ['info_component', 'seach_component', 'documentation']:
-#         return render(request, f'computercomponents/{name_page}.html', data)
-#     return Http404('<h1>Page not found</h1>')
-
-
-# def components_pages(request, name_page):
-#     data = {
-#         'menu': ['Главная', 'Каталог', 'Товары']
-#     }
-#     if name_page in ['info_component', 'seach_component', 'documentation']:
-#         return render(request, f'computercomponents/{name_page}.html', data)
-#     return Http404('<h1>Page not found</h1>')
 
 
 def test(request):

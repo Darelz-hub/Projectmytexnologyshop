@@ -17,16 +17,17 @@ padding: 5%, 5%, 5%, 5%;
 float: left;
 width: 20%;
 height: 20%;
+margin-right: 5%;
 padding-bottom: 5%;
 }
 .title{
 font-size: xx-large;
+margin-top: 5%;
 margin-left: 10%;
 text-align: left;
 }
 .content-text{
 width: 100%;
-margin-left: 10%;
 #float: right;
 font-size: xx-large;
 }

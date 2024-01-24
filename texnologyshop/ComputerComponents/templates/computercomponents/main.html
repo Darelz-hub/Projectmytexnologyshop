@@ -3,7 +3,7 @@
 {% load static %}
 <main>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-    <h1 class="title"><a href="#"> Ноутбуки</a></h1>
+    <h1 class="title"><a href="../products/{name} name='Laptop'"> Ноутбуки</a></h1>
         {% for laptop in laptops %}
             {% if forloop.counter < 4 %}
                             <div class="content">
@@ -43,7 +43,7 @@
                                         {% else %}
                                             <img class="IMAGE" src="{% static 'img/placeholder.png' %}" alt="this is trabl ">
                                         {% endif %}
-                                        <p class="content-text">{{pc.content}}</p>
+                                        <p class="content-text"><br>{{pc.content}}</p>
                                         {% for count in counts %}
                                             {% if count.id_product_id == pc.id %}
                                                 <p class="count"> В наличии: {{count.count_product}} штук </p>

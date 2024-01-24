@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+<main>
+<link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
+    <h1 class="title"><a href="#"> {{title}}</a></h1>
+        {% for product in products %}
+            {% if forloop.counter < 4 %}
+                            <div class="content">
+                                    <div class="border-padding">
+                                        <h1>{{product.name_ru}}</h1>
+                                        {% if product.image %}
+                                            <img class="IMAGE" src="{{laptop.image.url}}" alt="this is trabl ">
+                                        {% else %}
+                                            <img class="IMAGE" src="{% static '../img/placeholder.png' %}" alt="placeholder">
+                                        {% endif %}
+                                        <p class="content-text">{{product.content}}</p>
+                                        {% for count in counts %}
+                                            {% if count.id_product_id == product.id %}
+                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div>
+                                            <form class="buy" method="POST" action="#">
+                                                {% csrf_token %}
+                                                <p class="price">Цена:{{product.price}}</p>
+                                                <button class="button-buy"> Купить </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+            {% endif %}
+        {% endfor %}
+
+</main>
+
+{% endblock %}
