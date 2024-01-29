@@ -3,7 +3,7 @@
 {% load static %}
 <main>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-    <h1 class="title"><a href="../products/{name} name='Laptop'"> Ноутбуки</a></h1>
+    <h1 class="title"><a href="../products/Laptop"> Ноутбуки</a></h1>
         {% for laptop in laptops %}
             {% if forloop.counter < 4 %}
                             <div class="content">
@@ -32,7 +32,7 @@
             {% endif %}
         {% endfor %}
 
-    <h1 class="title"><a href="#">Компьютеры</a></h1>
+    <h1 class="title"><a href="../products/pc">Компьютеры</a></h1>
         {% for pc in pcs %}
             {% if forloop.counter < 4 %}
                             <div class="content">
@@ -60,7 +60,7 @@
                             </div>
             {% endif %}
         {% endfor %}
-    <h1 class="title"><a href="#"> Компьютерные компоненты </a></h1>
+    <h1 class="title"><a href="../products/components"> Компьютерные компоненты </a></h1>
         {% for component in components %}
             {% if forloop.counter < 4 %}
                             <div class="content">

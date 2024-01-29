@@ -26,12 +26,13 @@ from ComputerComponents.models import Product, Product_Stock
 
 class MainPage(View): # основная страница при загрузке сайта
     def get(self, request):
+
         laptops = Product.objects.all().filter(type_product='Laptop', is_published=True) # ноутбкуки из бд
         pcs = Product.objects.all().filter(type_product='pc') # Компьютеры из бд
         components = Product.objects.all().filter(type_product='components') # все компьютерные компоненты из бд
         counts = Product_Stock.objects.all() # количество товара
         data = {'laptops': laptops, 'counts': counts, 'pcs': pcs, 'components': components}
-        return render(request, 'computercomponents/main.html', data)
+        return render(request,'computercomponents/main.html' , data)
 
 
 class DocumentationMain(View): # основная страница
@@ -55,10 +56,14 @@ class Documentation(View):
         return {'response': 'STOP'}
 
 class Products(View):
-   def get(self, request, name):
-       products = Product.objects.all().filter(type_product_components=name)
+   def get(self, request, type_product_components):
+       if type_product_components == 'components':
+           products = Product.objects.all().filter(type_product=type_product_components)
+           title = Product.objects.filter(type_product=type_product_components).first()
+       else:
+            products = Product.objects.all().filter(type_product_components=type_product_components)
+            title = Product.objects.filter(type_product_components=type_product_components).first()
        counts = Product_Stock.objects.all()
-       title = Products.objects.filter(type_product_components=name).first()
        data = {'products': products, 'counts': counts, 'title': title}
        return render(request, 'computercomponents/products.html', data)
 

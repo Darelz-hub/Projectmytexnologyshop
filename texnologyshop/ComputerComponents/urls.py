@@ -10,7 +10,7 @@ urlpatterns = [
     # path('<slug:name_page>', components.components_pages),
     path('document/', components.DocumentationMain.as_view()),
     path('document/documentation/', components.Documentation.as_view()),
-    path('products/<slug:name>', components.Products.as_view()),
+    path('products/<slug:type_product_components>', components.Products.as_view()),
     # path('document/', components.documentationmain),
     # path('document/documentation/', components.documentation),
 ]

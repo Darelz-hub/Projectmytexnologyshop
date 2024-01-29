@@ -3,14 +3,18 @@
 {% load static %}
 <main>
 <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-    <h1 class="title"><a href="#"> {{title}}</a></h1>
+    {% if title.type_product == 'components'%}
+    <h1 class="title">Компьютерные компоненты</h1>
+    {% else %}
+    <h1 class="title">{{title.type_product_components_ru}}</h1>
+    {% endif %}
         {% for product in products %}
             {% if forloop.counter < 4 %}
                             <div class="content">
                                     <div class="border-padding">
                                         <h1>{{product.name_ru}}</h1>
                                         {% if product.image %}
-                                            <img class="IMAGE" src="{{laptop.image.url}}" alt="this is trabl ">
+                                            <img class="IMAGE" src="{{product.image.url}}" alt="this is trabl ">
                                         {% else %}
                                             <img class="IMAGE" src="{% static '../img/placeholder.png' %}" alt="placeholder">
                                         {% endif %}
