@@ -35,9 +35,14 @@
                       <input type="text" name="search_field" placeholder="Search">
                       <button type="submit"></button>
                     </form></li>
-                <li><a href="#"><img src="{% static '' %}"></a></li>
-                <li><a href="#">Зарегистрироваться</a></li>
-                <li><a href="#">Войти</a></li>
+                <li><a href=""><img src="{% static '' %}"></a></li>
+                {% if user.is_authenticated %}
+                <li><a href="#"> {{user.username}}</a></li>
+                <li><a href="http://127.0.0.1:8000/users/logout/">Выйти</a></li>
+                {% else %}
+                <li><a href="http://127.0.0.1:8000/users/registration/">Зарегистрироваться</a></li>
+                <li><a href="http://127.0.0.1:8000/users/login/">Войти</a></li>
+                {% endif %}
             </ul>
         </nav>
 </header>

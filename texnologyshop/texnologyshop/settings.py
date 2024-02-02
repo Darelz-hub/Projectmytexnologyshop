@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ComputerComponents',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,11 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# LOGIN_REDIRECT_URL – задает URL-адрес, на который следует перенаправлять пользователя после успешной авторизации;
+# LOGIN_URL – определяет URL-адрес, на который следует перенаправить неавторизованного пользователя при попытке посетить закрытую страницу сайта;
+# LOGOUT_REDIRECT_URL – задает URL-адрес, на который перенаправляется пользователь после выхода.
+
+LOGOUT_REDIRECT_URL = '/'  # задает URL-адрес, на который перенаправляется пользователь после выхода.
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login'
