@@ -13,7 +13,6 @@ background-position: center;
 }
 header{
 background-color: #6DBFCB;
-position: fixed;
 top: 0;
 left: 0;
 right: 0;
@@ -65,7 +64,7 @@ nav ul li:hover >ul {
 display: initial;
 }
 main{
-margin-top: 15%;
+margin-top: 5%;
 }
 
 
@@ -73,7 +72,6 @@ margin-top: 15%;
 
 form {
   position: relative;
-
   margin: 0 auto;
   display: inline;
 }

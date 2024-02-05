@@ -130,3 +130,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = '/'  # задает URL-адрес, на который перенаправляется пользователь после выхода.
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/users/login'
+
+
+# Настройка почты сервера
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com" #"smtp.yandex.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "texnoshoptest@gmail.com" # почта юзера
+EMAIL_HOST_PASSWORD = "aklr wepi plrg qsoh"   #пароль приложений берем из аккаунта
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
