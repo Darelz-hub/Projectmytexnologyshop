@@ -13,35 +13,36 @@
             <ul>
                 <li><a href="#">Категории &bigtriangledown;</a>
                     <ul>
-                        <li><a href="../products/pc">ПК</a></li>
-                        <li><a href="../products/Laptop">Ноутбуки</a></li>
-                        <li><a href="../products/components">Компьютерные компоненты &bigtriangledown;</a>
+                        <li><a href="{% url 'products' 'pc' %}">ПК</a></li>
+                        <li><a href="{% url 'products' 'Laptop' %}">Ноутбуки</a></li>
+                        <li><a href="{% url 'products' 'components' %}">Компьютерные компоненты &bigtriangledown;</a>
                             <ul>
-                                 <li><a href="../products/videocard">Видеокарта</a></li>
-                                 <li><a href="../products/ram">Оперативная память</a></li>
-                                 <li><a href="../products/cpu">ЦП</a></li>
-                                 <li><a href="../products/motherboard">Материнская плата</a></li>
-                                 <li><a href="../products/hdd">HHD</a></li>
-                                 <li><a href="../products/ssd">SSD</a></li>
-                                 <li><a href="../products/computerpoversuply">Блок питания</a></li>
+                                 <li><a href="{% url 'products' 'videocard' %}">Видеокарта</a></li>
+                                 <li><a href="{% url 'products' 'ram' %}">Оперативная память</a></li>
+                                 <li><a href="{% url 'products' 'cpu' %}">ЦП</a></li>
+                                 <li><a href="{% url 'products' 'motherboard' %}">Материнская плата</a></li>
+                                 <li><a href="{% url 'products' 'hdd' %}">HHD</a></li>
+                                 <li><a href="{% url 'products' 'ssd' %}">SSD</a></li>
+                                 <li><a href="{% url 'products' 'computerpoversulpy' %}">Блок питания</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li><a href="http://127.0.0.1:8000/document/">Документация</a></li>
-                <li><a href="http://127.0.0.1:8000/document/{{name}} name='CAT'">О нас</a></li>
-                    <li><form class="d7">
+                <li><a href="{% url 'document' %}">Документация</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><form class="d7">
                       {% csrf_token %}
                       <input type="text" name="search_field" placeholder="Search">
                       <button type="submit"></button>
-                    </form></li>
-                <li><a href=""><img src="{% static '' %}"></a></li>
+                </form>
+                </li>
+                <li><a href="#"><img class='image' src="{% static 'img/basket_of_goods.png' %}"></a></li>
                 {% if user.is_authenticated %}
                 <li><a href="#"> {{user.username}}</a></li>
-                <li><a href="http://127.0.0.1:8000/users/logout/">Выйти</a></li>
+                <li><a href="{% url 'users:logout' %}">Выйти</a></li>
                 {% else %}
-                <li><a href="http://127.0.0.1:8000/users/registration/">Зарегистрироваться</a></li>
-                <li><a href="http://127.0.0.1:8000/users/login/">Войти</a></li>
+                <li><a href="{% url 'users:registration' %}">Зарегистрироваться</a></li>
+                <li><a href="{% url 'users:login' %}">Войти</a></li>
                 {% endif %}
             </ul>
         </nav>

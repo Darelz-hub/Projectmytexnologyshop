@@ -26,4 +26,10 @@ class RegisterUserForm(UserCreationForm):
             raise forms.ValidationError("Такой E-mail уже существует!")
         return email
 
+    def clean_password(self):
+        username = self.cleaned_data['username']
+        if get_user_model().objects.filter(username=username).exists():
+            raise forms.ValidationError('Такой Пользователь уже существует!')
+        return username
+
 

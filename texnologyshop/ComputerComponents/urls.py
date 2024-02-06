@@ -4,7 +4,7 @@ import ComputerComponents.views as components
 urlpatterns = [
     path('', components.MainPage.as_view()),
     path('test/', components.test),
-    path('document/', components.DocumentationMain.as_view()),
-    path('document/documentation/', components.Documentation.as_view()),
-    path('products/<slug:type_product_components>', components.Products.as_view()),
+    path('document/', components.DocumentationMain.as_view(), name='document'),
+    path('document/documentation/', components.Documentation.as_view(), name='document_documentation'),
+    path('products/<slug:type_product_components>', components.Products.as_view(), name='products'),
 ]

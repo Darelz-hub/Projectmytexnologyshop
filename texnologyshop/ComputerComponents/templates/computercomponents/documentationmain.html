@@ -4,7 +4,7 @@
 
 <main>
     <link rel="stylesheet" href="{% static '/CSS/documentationmain.css'%}">
-    <form method="POST" action="../document/documentation/">
+    <form method="POST" action="{% url 'document_documentation' %}">
         {% csrf_token %}
         <div class="documentationmain-image-center">
             <div class="documentationmain-image">

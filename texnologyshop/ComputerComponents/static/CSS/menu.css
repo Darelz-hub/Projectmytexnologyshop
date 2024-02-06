@@ -35,13 +35,14 @@ margin: 0%;
 }
 header nav ul li a{
 margin-left: 0%;
+margin-right: 0%;
 padding: 5px;
 color: black;
 font-size: x-large;
 display: block;
 }
 header nav ul li a:hover{
-background: black;
+background: blue;
 color: white;
 }
 nav ul li ul {
@@ -84,7 +85,7 @@ form {
   margin-right: 30px;
 }
 .d7 input {
-  width: 250px;
+  width: 150px;
   height: 42px;
   padding-left: 15px;
   border-radius: 42px;
@@ -95,7 +96,7 @@ form {
   transition: .3s linear;
 }
 .d7 input:focus {
-  width: 300px;
+  width: 200px;
 }
 .d7 button {
   width: 42px;
@@ -115,3 +116,16 @@ form {
   font-size: 2em;
   color: #fff;
 }
+.image{
+height: 10%;
+width: 10%;
+display: block;
+float: left;
+}
+
+/*
+nav ul li a img{
+height: 10%;
+width: 10%;
+object-fit: cover;
+}*/
