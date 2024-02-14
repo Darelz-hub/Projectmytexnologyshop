@@ -1,23 +1,21 @@
 {% extends 'users.html' %}
 
 {% block content %}
-
-<div>
+<div class="form-login">
 <h1/>Авторизация</h1>
 <form method="POST">
     {% csrf_token %}
-    <div>{% if form.non_field_errors %}
+    {% if form.non_field_errors %}
     <ul>
         {% for error in form.non_field_errors %}
             <li>{{ error }}</li>
         {% endfor %}
     </ul>
-{% endif %}</div>
+{% endif %}
     {{form.as_p}}
-    <p><input type="submit" value="Войти">| <a href="http://127.0.0.1:8000/users/password_reset/"> Забыли пароль? </a></p>
+    <p><input class="submit" type="submit" value="Войти">| <a href="http://127.0.0.1:8000/users/password_reset/"> Забыли пароль? </a></p>
 
 </form>
 </div>
-
 {% endblock %}
 
