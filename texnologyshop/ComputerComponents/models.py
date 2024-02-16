@@ -30,3 +30,8 @@ class Product_Stock(models.Model):
     count_product = models.IntegerField()
     id_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+class Category(models.Model):
+    type_product = models.CharField(max_length=255, default=None)
+    type_product_components = models.CharField(max_length=255, blank=True, null=True)
+    type_product_components_ru = models.CharField(max_length=255, blank=True, null=True)
