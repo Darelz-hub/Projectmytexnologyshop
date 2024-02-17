@@ -1,20 +1,40 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.utils import timezone
-
+from smart_selects.db_fields import ChainedForeignKey
 
 # Create your models here.
 class Stock(models.Model):
     location = models.CharField(max_length=255)
 
+class Category(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    name_ru = models.CharField(max_length=255, unique=True)
+    def __str__(self):
+        return self.name_ru
 
+
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, unique=True)
+    name_ru = models.CharField(max_length=255, unique=True)
+    def __str__(self):
+        return self.name_ru
 
 class Product(models.Model):
     name = models.CharField(max_length=255, unique=True)
     name_ru = models.CharField(max_length=255, unique=True)
-    type_product = models.CharField(max_length=255, default=None)
-    type_product_components = models.CharField(max_length=255, blank=True, null=True)
-    type_product_components_ru = models.CharField(max_length=255, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    subcategory = ChainedForeignKey(
+        SubCategory,
+        chained_field="category",
+        chained_model_field="category",
+        show_all=False,
+        auto_choose=True,
+        sort=True,
+        null=True,
+        blank=True,
+    )
     price = models.PositiveIntegerField(max_length=40)
     content = models.TextField(max_length=1000)
     firm = models.CharField(max_length=255)
@@ -30,8 +50,3 @@ class Product_Stock(models.Model):
     count_product = models.IntegerField()
     id_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-class Category(models.Model):
-    type_product = models.CharField(max_length=255, default=None)
-    type_product_components = models.CharField(max_length=255, blank=True, null=True)
-    type_product_components_ru = models.CharField(max_length=255, blank=True, null=True)
