@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.utils import timezone
 from smart_selects.db_fields import ChainedForeignKey
-
+from django.contrib.auth.models import User
 # Create your models here.
 class Stock(models.Model):
     location = models.CharField(max_length=255)
@@ -35,12 +35,11 @@ class Product(models.Model):
         null=True,
         blank=True,
     )
-    price = models.PositiveIntegerField(max_length=40)
+    price = models.PositiveIntegerField()
     content = models.TextField(max_length=1000)
     firm = models.CharField(max_length=255)
     image = models.ImageField(upload_to='imagedb/', null=True, max_length=255, validators=[
-        FileExtensionValidator(['png', 'jpg', 'jpeg', 'gif']),
-    ])
+        FileExtensionValidator(['png', 'jpg', 'jpeg', 'gif'])])
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
@@ -50,3 +49,13 @@ class Product_Stock(models.Model):
     count_product = models.IntegerField()
     id_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+
+class Basket(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Корзина для {self.user.username} | {self.product.name} '

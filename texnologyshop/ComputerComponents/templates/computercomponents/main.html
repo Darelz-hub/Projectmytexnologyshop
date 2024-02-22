@@ -21,10 +21,10 @@
                                             {% endif %}
                                         {% endfor %}
                                         <div>
-                                            <form class="buy" method="POST" action="#">
+                                            <form class="buy" method="POST" action="{% url 'basket' %}">
                                                 {% csrf_token %}
                                                 <p class="price">Цена:{{laptop.price}}</p>
-                                                <button class="button-buy"> Купить </button>
+                                                <button class="button-buy" name="product_id" value={{laptop.id}}> Купить </button>
                                             </form>
                                         </div>
                                     </div>
@@ -50,10 +50,10 @@
                                             {% endif %}
                                         {% endfor %}
                                         <div>
-                                            <form class="buy" method="POST" action="#">
+                                            <form class="buy" method="POST" action="{% url 'basket' %}">
                                                 {% csrf_token %}
                                                 <p class="price">Цена:{{pc.price}}</p>
-                                                <button class="button-buy"> Купить </button>
+                                                <button class="button-buy" name="product_id" value={{pc.id}}> Купить </button>
                                             </form>
                                         </div>
                                     </div>
@@ -78,10 +78,10 @@
                                             {% endif %}
                                         {% endfor %}
                                         <div>
-                                            <form class="buy" method="POST" action="#">
+                                            <form class="buy" method="POST" action="{% url 'basket' %}">
                                                 {% csrf_token %}
                                                 <p class="price">Цена:{{component.price}}</p>
-                                                <button class="button-buy"> Купить </button>
+                                                <button class="button-buy" name="product_id" value={{component.id}}> Купить </button>
                                             </form>
                                         </div>
                                     </div>

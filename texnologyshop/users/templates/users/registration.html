@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div>
+{% extends 'users.html' %}
+{% block content %}
+<main>
+<div class="form-reset-complete">
+    <h1>TEXNOSHOP</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p}}
-        <p><input type="submit" value="Зарегистрироваться"></p>
+        <p><input class="submit-reset" type="submit" value="Зарегистрироваться"> | <a href="{% url 'users:login' %}">Уже зарегистрированы?</a></p>
     </form>
 </div>
-</body>
-</html>
+</main>
+
+{% endblock %}

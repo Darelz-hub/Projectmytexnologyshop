@@ -1,5 +1,4 @@
 {% extends 'users.html' %}
-
 {% block content %}
 <div class="form-login">
 <h1/>Авторизация</h1>
@@ -14,6 +13,7 @@
 {% endif %}
     {{form.as_p}}
     <p><input class="submit" type="submit" value="Войти">| <a href="http://127.0.0.1:8000/users/password_reset/"> Забыли пароль? </a></p>
+    <p><a href="{% url 'users:registration' %}">Не зарегистрированы? </a></p>
 
 </form>
 </div>
