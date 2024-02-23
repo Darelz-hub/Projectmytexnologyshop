@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
-
+from dotenv import load_dotenv
+# Загрузка переменных окружения из файла .env
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dgo)pl29)yb8fh^*6egywl+vqc)@nk03pc1@=y9&)ob%pxu06q'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -135,11 +137,11 @@ LOGIN_URL = '/users/login'
 
 # Настройка почты сервера
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com" #"smtp.yandex.ru"
-EMAIL_PORT = 465
-EMAIL_HOST_USER = "texnoshoptest@gmail.com" # почта юзера
-EMAIL_HOST_PASSWORD = "aklr wepi plrg qsoh"   #пароль приложений берем из аккаунта
-EMAIL_USE_SSL = True
+EMAIL_HOST = os.getenv('EMAIL_HOST', "smtp.gmail.com") #"smtp.yandex.ru"
+EMAIL_PORT = os.getenv('EMAIL_PORT', 100)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER') # почта юзера
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')   #пароль приложений берем из аккаунта
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', False) == 'True'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
