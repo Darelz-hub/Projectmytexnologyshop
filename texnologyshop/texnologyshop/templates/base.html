@@ -11,24 +11,24 @@
     <a href="http://127.0.0.1:8000/"><img class="logo" src="{% static 'img/LOGO2.png' alt='LOGO' %}"></a>
         <nav>
             <ul>
-                <li><a href="#">Категории &bigtriangledown;</a>
+                <li><a href="{% url 'main_page' %}">Категории &bigtriangledown;</a>
                     <ul>
-                        <li><a href="{% url 'products' 'pc' %}">ПК</a></li>
+                        <li><a href="{% url 'products' 'PC' %}">ПК</a></li>
                         <li><a href="{% url 'products' 'Laptop' %}">Ноутбуки</a></li>
-                        <li><a href="{% url 'products' 'components' %}">Компьютерные компоненты &bigtriangledown;</a>
+                        <li><a href="{% url 'products' 'Components' %}">Компьютерные компоненты &bigtriangledown;</a>
                             <ul>
-                                 <li><a href="{% url 'products' 'videocard' %}">Видеокарта</a></li>
-                                 <li><a href="{% url 'products' 'ram' %}">Оперативная память</a></li>
-                                 <li><a href="{% url 'products' 'cpu' %}">ЦП</a></li>
-                                 <li><a href="{% url 'products' 'motherboard' %}">Материнская плата</a></li>
-                                 <li><a href="{% url 'products' 'hdd' %}">HHD</a></li>
-                                 <li><a href="{% url 'products' 'ssd' %}">SSD</a></li>
-                                 <li><a href="{% url 'products' 'computerpoversulpy' %}">Блок питания</a></li>
+                                 <li><a href="{% url 'products' 'Components' 'Videocard' %}">Видеокарта</a></li>
+                                 <li><a href="{% url 'products' 'Components' 'RAM' %}">Оперативная память</a></li>
+                                 <li><a href="{% url 'products' 'Components' 'CPU' %}">ЦП</a></li>
+                                 <li><a href="{% url 'products' 'Components' 'Motherboard' %}">Материнская плата</a></li>
+                                 <li><a href="{% url 'products' 'Components' 'HDD' %}">HHD</a></li>
+                                 <li><a href="{% url 'products' 'Components' 'SSD' %}">SSD</a></li>
+                                 <li><a href="{% url 'products' 'Components' 'Computerpoversuply' %}">Блок питания</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li><a href="{% url 'document' %}">Документация</a></li>
+                <li><a href="{% url 'document' %}">Полезная информация</a></li>
                 <li><a href="#">О нас</a></li>
                 <li><form class="d7">
                       {% csrf_token %}

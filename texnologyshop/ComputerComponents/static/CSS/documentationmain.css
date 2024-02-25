@@ -1,20 +1,19 @@
-main{
-background-color: blue;
-}
-.red{
-color: red
-}
-
 .Image{
 height: 400px;
 width: 400px;
 }
 .documentationmain-image{
 display: inline-block;
+margin-top: 5%;
 }
 .documentationmain-image-center{
 display: block;
-margin-left: 5%;
-margin-right: 5%;
-margin-top: 5%;
+text-align: center;
+}
+.title{
+font-size: xx-large;
+text-align: center;
+}
+.button{
+font-size: x-large;
 }

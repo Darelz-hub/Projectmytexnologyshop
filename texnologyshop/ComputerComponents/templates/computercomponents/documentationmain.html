@@ -3,41 +3,42 @@
 {% load static %}
 
 <main>
+    <h1 class="title">Информация о компьютерных компонентах</h1>
     <link rel="stylesheet" href="{% static '/CSS/documentationmain.css'%}">
     <form method="POST" action="{% url 'document_documentation' %}">
         {% csrf_token %}
         <div class="documentationmain-image-center">
             <div class="documentationmain-image">
-                <button name="name" value="Central_processing_unit"><img class="Image" src="{% static 'img/cpu.jpg' %}"
+                <button type="submit" class="button"  name="name" value="Центральный_процессор"><img class="Image" src="{% static 'img/cpu.jpg' %}"
                                                                          alt="CPU">
-                    <p>CPU</p>
+                    <p>Центральный процессор</p>
                 </button>
-                <button name="name" value="Graphics_card"><img class="Image"
+                <button type="submit" class="button"  name="name" value="Видеокарта"><img class="Image"
                                                                src="{% static 'img/videocard.jpg' %}"
                                                                alt="VIDEO CARD">
-                    <p>VIDEO CARD</p>
+                    <p>Видеокарта</p>
                 </button>
-                <button name="name" value="Random-access_memory"><img class="Image" src="{% static 'img/RAM.png' %}"
+                <button type="submit" class="button"  name="name" value="Оперативная_память"><img class="Image" src="{% static 'img/RAM.png' %}"
                                                                       alt="RAM">
-                    <p>RAM</p>
+                    <p>Оперативная память</p>
                 </button>
-                <button name="name" value="Power_supply_unit_(computer)"><img class="Image"
+                <button type="submit" class="button"  name="name" value="Блок_питания_компьютера"><img class="Image"
                                                                               src="{% static 'img/COMPUTER_POWER_SUPPLY.jpg' %}"
                                                                               alt="COMPUTER POWER SUPPLY">
-                    <p>COMPUTER POWER SUPPLY</p>
+                    <p>Блок питания компьютера</p>
                 </button>
-                <button name="name" value="Solid-state_drive"><img class="Image" src="{% static 'img/SSD.jpg' %}"
+                <button type="submit" class="button"  name="name" value="Твердотельный_накопитель"><img class="Image" src="{% static 'img/SSD.jpg' %}"
                                                                    alt="SSD">
                     <p>SSD</p>
                 </button>
-                <button name="name" value="Hard_disk_drive"><img class="Image" src="{% static 'img/HDD.jpg' %}"
+                <button type="submit" class="button"  name="name" value="Жёсткий_диск"><img class="Image" src="{% static 'img/HDD.jpg' %}"
                                                                  alt="HDD">
                     <p>HDD</p>
                 </button>
-                <button name="name" value="Motherboard"><img class="Image"
+                <button name="name" value="Материнская_плата" ><img class="Image"
                                                              src="{% static 'img/MOTHERBOARD.jpg' %}"
                                                              alt="MOTHERBOARD">
-                    <p>MOTHERDOARD</p>
+                    <p>Материнская плата</p>
                 </button>
             </div>
         </div>

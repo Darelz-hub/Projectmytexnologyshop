@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+<main>
+    <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
+{% if baskets %}
+    <h1>Корзина товаров</h1>
+{% for basket in baskets %}
+                            <div class="content">
+                                    <div class="border-padding">
+                                        <h1>{{basket.product.name_ru}}</h1>
+                                        {% if basket.product.image %}
+                                            <img class="IMAGE" src="{{basket.product.image.url}}" alt="this is trabl ">
+                                        {% else %}
+                                            <img class="IMAGE" src="{% static 'img/placeholder.png' %}" alt="this is trabl ">
+                                        {% endif %}
+                                        <p class="content-text"><br>{{basket.product.content}}</p>
+                                        {% for count in counts %}
+                                            {% if count.id_product_id == basket.product.id %}
+                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                            {% endif %}
+                                         {% endfor %}
+                                        <p>В корзине: {{basket.quantity}}</p>
+                                        <div>
+                                            <form class="buy" method="POST" action="{% url 'form_order' %}">
+                                                {% csrf_token %}
+                                                <p class="price">Цена:{{basket.product.price}}</p>
+                                                <button class="button-buy" name="basket_id" value={{basket.id}}> Купить </button>
+                                            </form>
+                                            <form method="POST" action="{% url 'basket_delete' %}">
+                                                {% csrf_token %}
+                                                <button type="submit" name="product_id" value={{basket.id}}>Удалить</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+        {% endfor %}
+{% else %}
+Корзина пуста
+{% endif%}
+</main>
+{% endblock %}

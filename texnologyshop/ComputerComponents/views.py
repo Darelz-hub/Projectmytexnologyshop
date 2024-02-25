@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.views import View
 from django.views.generic.edit import DeleteView
-from ComputerComponents.models import Product, Product_Stock, Category, Basket
+from ComputerComponents.models import Product, Product_Stock, Category, SubCategory, Basket, Order, OrderProducts
 
 
 class MainPage(View): # основная страница при загрузке сайта
@@ -28,10 +28,12 @@ class Documentation(View):
     def post(self, request):
         # ваша логика для получения данных о фильме из API
         if request.method == 'POST':
-            name = request.POST.get('name', 'Central_processing_unit')
+            name = request.POST.get('name', 'Видеокарта')
             result = {}
             req = requests.post(
-                f'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=2&titles={name}&explaintext=1&format=json')
+                f'https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=2&titles={name}&explaintext=10&format=json')
+                #f'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=2&titles={name}&explaintext=1&format=json')
+
             req = req.json()
             indexkey = list(req['query']['pages'])[0]  # Берем ключ, который состоит из цифр в словаре pages
             result.update({'title': req['query']['pages'][indexkey]['title'],
@@ -40,18 +42,23 @@ class Documentation(View):
         return {'response': 'STOP'}
 
 class Products(View):
-   def get(self, request, type_product_components):
-       if type_product_components == 'components':
-           products = Product.objects.all().filter(type_product=type_product_components)
-           title = Product.objects.filter(type_product=type_product_components).first()
-       else:
-            products = Product.objects.all().filter(type_product_components=type_product_components)
-            title = Product.objects.filter(type_product_components=type_product_components).first()
+   def get(self, request, category):
+       category_id = Category.objects.get(name=category)
+       products = Product.objects.all().filter(category=category_id)
+       title =  Product.objects.filter(category=Category.objects.get(name=category)).first()
        counts = Product_Stock.objects.all()
        data = {'products': products, 'counts': counts, 'title': title}
        return render(request, 'computercomponents/products.html', data)
 
-
+class ProductsSubcategory(View):
+    def get(self, request, category, subcategory):
+        category_id = Category.objects.get(name=category)
+        subcategory_id = SubCategory.objects.get(name=subcategory)
+        products = Product.objects.all().filter(category=category_id, subcategory=subcategory_id)
+        title = Product.objects.filter(category=Category.objects.get(name=category)).first()
+        counts = Product_Stock.objects.all()
+        data = {'products': products, 'counts': counts, 'title': title}
+        return render(request, 'computercomponents/products.html', data)
 class Baskets(View):
     def get(self, request):
         baskets = Basket.objects.all().filter(user_id=request.user.id)
@@ -72,6 +79,7 @@ class Baskets(View):
             basket.save()
             return HttpResponseRedirect(current_page)
 
+
 class BasketDelete(View):
     def post(self, request):
         product_id = request.POST.get('product_id')
@@ -80,5 +88,43 @@ class BasketDelete(View):
         basket.delete()
         return HttpResponseRedirect(current_page)
 
-def test(request):
-    return render(request, 'testcase/test.html')
+
+
+class FormOrder(View):
+    def post(self, request):
+        basket_id = request.POST.get('basket_id')
+        basket = Basket.objects.get(id=basket_id)
+        return render(request, 'computercomponents/order.html', {'basket': basket})
+
+class CreateOrder(View):
+    def post(self, request):
+        quantity = int(request.POST.get('quantity'))
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(id=product_id)
+        real_price = product.price * quantity
+        type_order = request.POST.get('type_order')
+        address = request.POST.get('address')
+        order = Order.objects.create(id_user=request.user, status='Не оплачено',type_order=type_order, address=address)
+        order_id = order.id
+        OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
+        return render(request, 'computercomponents/ceal.html', {'order_id': order_id})
+#
+# class CealOrder(View):
+#     def post(self, request):
+#         order_id = request.POST.get('order_id')
+#         order = Order.objects.get(id=order_id)
+#         if ceal == True:
+#             order.status = 'Оплачен'
+#             order.save()
+#
+#         else:
+
+# class Developers(View):
+#     def get(self, request):
+#         orders = Orders.objects.all().filter(user_id=request.user, status='Оплачен')
+#         order_products = OrderProduct.objects
+#         return render(request,  'computercomponents/developers.html', {'orders': orders})
+
+# def test(request):
+#     return render(request, 'testcase/test.html')
+

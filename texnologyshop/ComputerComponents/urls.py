@@ -2,11 +2,14 @@ from django.urls import path, re_path
 import ComputerComponents.views as components
 
 urlpatterns = [
-    path('', components.MainPage.as_view()),
-    path('test/', components.test),
+    path('', components.MainPage.as_view(), name='main_page'),
+    #path('test/', components.test),
     path('document/', components.DocumentationMain.as_view(), name='document'),
     path('document/documentation/', components.Documentation.as_view(), name='document_documentation'),
-    path('products/<slug:type_product_components>', components.Products.as_view(), name='products'),
+    path('products/<slug:category>', components.Products.as_view(), name='products'),
+    path('products/<slug:category>/<slug:subcategory>', components.ProductsSubcategory.as_view(), name='products'),
     path('baskets/', components.Baskets.as_view(), name='basket'),
     path('basket/delete/', components.BasketDelete.as_view(), name='basket_delete'),
+    path('order/', components.FormOrder.as_view(), name='form_order'),
+    path('create_order/', components.CreateOrder.as_view(), name='create_order'),
 ]
