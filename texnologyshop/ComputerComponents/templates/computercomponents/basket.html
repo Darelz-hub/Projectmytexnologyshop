@@ -27,7 +27,7 @@
                                                 <p class="price">Цена:{{basket.product.price}}</p>
                                                 <button class="button-buy" name="basket_id" value={{basket.id}}> Купить </button>
                                             </form>
-                                            <form method="POST" action="{% url 'basket_delete' %}">
+                                            <form method="POST" action="{% url 'basket_delete_product' %}">
                                                 {% csrf_token %}
                                                 <button type="submit" name="product_id" value={{basket.id}}>Удалить</button>
                                             </form>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="POST" action="{% url 'ceal_order' %}">
+    {% csrf_token %}
+    <p>Название товара: {{order_products.id_product.name_ru}}</p>
+    <p>Адрес: {{order.address}}</p>
+    <p>Количество: {{ order_products.counter }}</p>
+    </p>Финальная цена: {{ order_products.real_price }}
+    <input type="hidden" name="product_id" value="{{ order_products.id_product.id}}">
+    <input type="hidden" name="quantity" value={{order_products.counter}}>
+    <input type="hidden" name="real_price" value={{order_products.real_price}}>
+    <input type="hidden" name="order_id" value={{order.id}}>
+    Метод оплаты и тд
+    <button type="submit">Оплатить</button>
+</form>
+</body>
+</html>

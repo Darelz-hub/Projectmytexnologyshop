@@ -1,10 +1,15 @@
 import requests
+from django.urls import reverse
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
 from django.views import View
 from django.views.generic.edit import DeleteView
 from ComputerComponents.models import Product, Product_Stock, Category, SubCategory, Basket, Order, OrderProducts
-
+from django.conf import settings
+from yookassa import Configuration, Payment
+import uuid
+Configuration.account_id = settings.YOOKASSA_SHOP_ID
+Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
 class MainPage(View): # основная страница при загрузке сайта
     def get(self, request):
@@ -24,7 +29,7 @@ class DocumentationMain(View): # основная страница
         return render(request, 'computercomponents/documentationmain.html')
 
 
-class Documentation(View):
+class Documentation(View): #
     def post(self, request):
         # ваша логика для получения данных о фильме из API
         if request.method == 'POST':
@@ -41,7 +46,7 @@ class Documentation(View):
             return render(request, 'computercomponents/documentation.html', {'response': result})
         return {'response': 'STOP'}
 
-class Products(View):
+class Products(View): # получение товара по категориям
    def get(self, request, category):
        category_id = Category.objects.get(name=category)
        products = Product.objects.all().filter(category=category_id)
@@ -50,7 +55,7 @@ class Products(View):
        data = {'products': products, 'counts': counts, 'title': title}
        return render(request, 'computercomponents/products.html', data)
 
-class ProductsSubcategory(View):
+class ProductsSubcategory(View): # класс для получения продуктов по подкатегориям
     def get(self, request, category, subcategory):
         category_id = Category.objects.get(name=category)
         subcategory_id = SubCategory.objects.get(name=subcategory)
@@ -59,12 +64,13 @@ class ProductsSubcategory(View):
         counts = Product_Stock.objects.all()
         data = {'products': products, 'counts': counts, 'title': title}
         return render(request, 'computercomponents/products.html', data)
-class Baskets(View):
+class Baskets(View): # отображение страницы корзины
     def get(self, request):
         baskets = Basket.objects.all().filter(user_id=request.user.id)
         counts = Product_Stock.objects.all()
         return render(request, 'computercomponents/basket.html', {'baskets': baskets, 'counts': counts})
 
+class BasketAddProduct(View): # добавление товара в карзину
     def post(self, request):
         product_id = request.POST.get('product_id')
         product = Product.objects.get(id=int(product_id))
@@ -78,9 +84,7 @@ class Baskets(View):
             basket.quantity += 1
             basket.save()
             return HttpResponseRedirect(current_page)
-
-
-class BasketDelete(View):
+class BasketDeleteProduct(View):
     def post(self, request):
         product_id = request.POST.get('product_id')
         current_page = request.META.get('HTTP_REFERER')
@@ -106,19 +110,51 @@ class CreateOrder(View):
         address = request.POST.get('address')
         order = Order.objects.create(id_user=request.user, status='Не оплачено',type_order=type_order, address=address)
         order_id = order.id
-        OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
-        return render(request, 'computercomponents/ceal.html', {'order_id': order_id})
-#
-# class CealOrder(View):
-#     def post(self, request):
-#         order_id = request.POST.get('order_id')
-#         order = Order.objects.get(id=order_id)
-#         if ceal == True:
-#             order.status = 'Оплачен'
-#             order.save()
-#
-#         else:
+        order_products = OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
+        return render(request, 'computercomponents/ceal.html', {'order': order, 'order_products': order_products})
 
+class CealOrder(View):
+    def post(self, request):
+        product_id = request.POST.get('product_id')
+        order_id = request.POST.get('order_id')
+        quantity = int(request.POST.get('quantity'))
+        order = Order.objects.get(id=order_id)
+        real_price = request.POST.get('real_price')
+        idempotence_key = uuid.uuid4()
+        currency = "RUB"
+        description = 'Товары в корзине'
+        payment = Payment.create({
+            "amount": {
+                    "value": real_price,
+                    "currency": currency
+            },
+            "confirmation": {
+                "type": "redirect",
+                "return_url": request.build_absolute_uri(reverse('payment_success')),
+            },
+            "capture": True,
+            "testing": True,
+            "description": description,
+        },
+                idempotency_key=idempotence_key)
+        confirmation_url = payment.confirmation.confirmation_url
+        order.status = 'Оплачено'
+        order.save()
+        product_stock = Product_Stock.objects.get(id_product=product_id)
+        product_stock.count_product -= quantity
+        product_stock.save()
+        return redirect(confirmation_url)
+class PaymentSuccess(View):
+    def get(self, request):
+        for key in list(request.session.keys()):
+            if key == 'session_key':
+                del request.session[key]
+        return render(request, 'computercomponents/payment_success.html')
+
+
+class PaymentFailed(View):
+    def get(self, request):
+        return render(request, 'computercomponents/payment_failed.html')
 # class Developers(View):
 #     def get(self, request):
 #         orders = Orders.objects.all().filter(user_id=request.user, status='Оплачен')

@@ -9,7 +9,11 @@ urlpatterns = [
     path('products/<slug:category>', components.Products.as_view(), name='products'),
     path('products/<slug:category>/<slug:subcategory>', components.ProductsSubcategory.as_view(), name='products'),
     path('baskets/', components.Baskets.as_view(), name='basket'),
-    path('basket/delete/', components.BasketDelete.as_view(), name='basket_delete'),
+    path('baskets/add_product/', components.BasketAddProduct.as_view(), name='basket_add_product'),
+    path('basket/delete/', components.BasketDeleteProduct.as_view(), name='basket_delete_product'),
     path('order/', components.FormOrder.as_view(), name='form_order'),
     path('create_order/', components.CreateOrder.as_view(), name='create_order'),
+    path('ceal_order/', components.CealOrder.as_view(), name='ceal_order'),
+    path('payment_success/', components.PaymentSuccess.as_view(), name='payment_success'),
+    path('payment_failed/', components.PaymentFailed.as_view(), name='payment_failed'),
 ]
