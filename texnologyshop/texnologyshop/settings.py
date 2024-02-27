@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ComputerComponents',
     'users',
     'smart_selects',
+    'analytical',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,4 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 # Yookassa
 YOOKASSA_SECRET_KEY = os.getenv('YOOKASSA_SECRET_KEY')
 YOOKASSA_SHOP_ID = os.getenv('YOOKASSA_SHOP_ID')
+
