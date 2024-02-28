@@ -4,10 +4,12 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
 from django.views import View
 from django.views.generic.edit import DeleteView
-from ComputerComponents.models import Product, Product_Stock, Category, SubCategory, Basket, Order, OrderProducts
+from ComputerComponents.models import (Product, Product_Stock, Category, SubCategory, Basket, Order, OrderProducts,
+                                       Delivery)
 from django.conf import settings
 from yookassa import Configuration, Payment
 import uuid
+from django.core.paginator import Paginator
 Configuration.account_id = settings.YOOKASSA_SHOP_ID
 Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
@@ -37,7 +39,6 @@ class Documentation(View): #
             result = {}
             req = requests.post(
                 f'https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=2&titles={name}&explaintext=10&format=json')
-                #f'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=2&titles={name}&explaintext=1&format=json')
 
             req = req.json()
             indexkey = list(req['query']['pages'])[0]  # Берем ключ, который состоит из цифр в словаре pages
@@ -50,9 +51,12 @@ class Products(View): # получение товара по категория�
    def get(self, request, category):
        category_id = Category.objects.get(name=category)
        products = Product.objects.all().filter(category=category_id)
-       title =  Product.objects.filter(category=Category.objects.get(name=category)).first()
+       title = Product.objects.filter(category=Category.objects.get(name=category)).first()
        counts = Product_Stock.objects.all()
-       data = {'products': products, 'counts': counts, 'title': title}
+       paginator = Paginator(products, 3)  # Показывать по 3 объектов на странице
+       page_number = request.GET.get('page')
+       page_obj = paginator.get_page(page_number)
+       data = {'products': products, 'counts': counts, 'title': title, 'page_obj': page_obj}
        return render(request, 'computercomponents/products.html', data)
 
 class ProductsSubcategory(View): # класс для получения продуктов по подкатегориям
@@ -62,7 +66,10 @@ class ProductsSubcategory(View): # класс для получения прод
         products = Product.objects.all().filter(category=category_id, subcategory=subcategory_id)
         title = Product.objects.filter(category=Category.objects.get(name=category)).first()
         counts = Product_Stock.objects.all()
-        data = {'products': products, 'counts': counts, 'title': title}
+        paginator = Paginator(products, 3)  # Показывать по 3 объектов на странице
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        data = {'products': products, 'counts': counts, 'title': title, 'page_obj': page_obj}
         return render(request, 'computercomponents/products.html', data)
 class Baskets(View): # отображение страницы корзины
     def get(self, request):
@@ -105,21 +112,28 @@ class CreateOrder(View):
         quantity = int(request.POST.get('quantity'))
         product_id = request.POST.get('product_id')
         product = Product.objects.get(id=product_id)
-        real_price = product.price * quantity
-        type_order = request.POST.get('type_order')
-        address = request.POST.get('address')
-        order = Order.objects.create(id_user=request.user, status='Не оплачено',type_order=type_order, address=address)
-        order_id = order.id
-        order_products = OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
-        return render(request, 'computercomponents/ceal.html', {'order': order, 'order_products': order_products})
+        product_stock = Product_Stock.objects.get(id_product=product_id)
+        # заглушка на количество товара
+        if product_stock.count_product <= quantity:
+            return render(request, 'computercomponents/count_error.html')
+        else:
+            real_price = product.price * quantity
+            type_order = request.POST.get('type_order')
+            address = request.POST.get('address')
+            order = Order.objects.create(id_user=request.user, status='Не оплачено',type_order=type_order, address=address)
+            order_id = order.id
+            order_products = OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
+            return render(request, 'computercomponents/ceal.html', {'order': order, 'order_products': order_products})
 
 class CealOrder(View):
     def post(self, request):
+        # получение данных
         product_id = request.POST.get('product_id')
         order_id = request.POST.get('order_id')
         quantity = int(request.POST.get('quantity'))
         order = Order.objects.get(id=order_id)
         real_price = request.POST.get('real_price')
+        # оплата
         idempotence_key = uuid.uuid4()
         currency = "RUB"
         description = 'Товары в корзине'
@@ -138,11 +152,15 @@ class CealOrder(View):
         },
                 idempotency_key=idempotence_key)
         confirmation_url = payment.confirmation.confirmation_url
+        # обновление таблицы заказа
         order.status = 'Оплачено'
         order.save()
+        # вычитание товара из склада
         product_stock = Product_Stock.objects.get(id_product=product_id)
         product_stock.count_product -= quantity
         product_stock.save()
+        # добавление нового заказа в доставку
+        #delivery = Delivery.objects.create()
         return redirect(confirmation_url)
 class PaymentSuccess(View):
     def get(self, request):
@@ -155,6 +173,15 @@ class PaymentSuccess(View):
 class PaymentFailed(View):
     def get(self, request):
         return render(request, 'computercomponents/payment_failed.html')
+
+
+class PageDelivery(View):
+    def get(self, request):
+        deliverys = Delivery.objects.all().filter(id_user=request.user)
+        id_order = deliverys.id_order
+        order_product = OrderProducts.objects.all().filter(id_order=Order.objects.get(id=id_order, id_user=request.user))
+        data = {'deliverys': deliverys, 'order_product': order_product}
+        return render(request, 'computercomponents/delivery.html', data)
 # class Developers(View):
 #     def get(self, request):
 #         orders = Orders.objects.all().filter(user_id=request.user, status='Оплачен')

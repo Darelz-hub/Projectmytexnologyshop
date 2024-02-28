@@ -3,13 +3,8 @@
 {% load static %}
 <main>
 <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-    {% if title.type_product == 'components'%}
-    <h1 class="title">Компьютерные компоненты</h1>
-    {% else %}
-    <h1 class="title">{{title.type_product_components_ru}}</h1>
-    {% endif %}
-        {% for product in products %}
-            {% if forloop.counter < 4 %}
+        <h1 class="title">{{title.category}}</h1>
+        {% for product in page_obj %}
                             <div class="content">
                                     <div class="border-padding">
                                         <h1>{{product.name_ru}}</h1>
@@ -25,15 +20,29 @@
                                             {% endif %}
                                         {% endfor %}
                                         <div>
-                                            <form class="buy" method="POST" action="#">
+                                            <form class="buy" method="POST" action="{% url 'basket_add_product' %}">
                                                 {% csrf_token %}
                                                 <p class="price">Цена:{{product.price}}</p>
-                                                <button class="button-buy"> Купить </button>
+                                                <button class="button-buy" name="product_id" value={{product.id}}> В корзину </button>
                                             </form>
                                         </div>
                                     </div>
                             </div>
-            {% endif %}
         {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1"> &laquo;  << 1  первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}"> <| {{ page_obj.previous_page_number }} предыдущая</a>
+            {% endif %}
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"> |> следующая {{ page_obj.next_page_number }}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">  >> последняя {{ page_obj.paginator.num_pages }} &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </main>
 {% endblock %}

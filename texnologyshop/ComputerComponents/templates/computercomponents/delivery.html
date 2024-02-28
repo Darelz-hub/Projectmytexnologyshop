@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Заказы
+{% for delivery in deliverys %}
+    <p>{{order_product.id_product.name_ru}}</p>
+    <p>{{delivery.status_delivery.name_ru}}</p>
+{% endfor %}
+</body>
+</html>

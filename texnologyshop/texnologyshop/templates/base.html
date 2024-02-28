@@ -62,7 +62,7 @@
 </svg></a></li>
 <!--                <li><a href="#"><img class='image' src="{% static 'img/basket_of_goods.png' %}"></a></li>-->
                 {% if user.is_authenticated %}
-                <li><a href="#"> {{user.username}}</a></li>
+                <li><a href="{% url 'users:profile' %}"> {{user.username}}</a></li>
                 <li><a href="{% url 'users:logout' %}">Выйти</a></li>
                 {% else %}
                 <li><a href="{% url 'users:registration' %}">Зарегистрироваться</a></li>

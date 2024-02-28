@@ -16,4 +16,5 @@ urlpatterns = [
     path('ceal_order/', components.CealOrder.as_view(), name='ceal_order'),
     path('payment_success/', components.PaymentSuccess.as_view(), name='payment_success'),
     path('payment_failed/', components.PaymentFailed.as_view(), name='payment_failed'),
+    path('delivery/', components.PageDelivery.as_view(), name='delivery'),
 ]

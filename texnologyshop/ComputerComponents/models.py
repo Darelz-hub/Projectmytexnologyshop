@@ -3,25 +3,31 @@ from django.core.validators import FileExtensionValidator
 from django.utils import timezone
 from smart_selects.db_fields import ChainedForeignKey
 from django.contrib.auth.models import User
+
+
 # Create your models here.
-class Stock(models.Model): # местоположение склада
+class Stock(models.Model):  # местоположение склада
     location = models.CharField(max_length=255)
 
-class Category(models.Model): # категория товара
+
+class Category(models.Model):  # категория товара
     name = models.CharField(max_length=255, unique=True)
     name_ru = models.CharField(max_length=255, unique=True)
+
     def __str__(self):
         return self.name_ru
 
 
-class SubCategory(models.Model): # информация о подкатегории товара
+class SubCategory(models.Model):  # информация о подкатегории товара
     category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
     name = models.CharField(max_length=255, unique=True)
     name_ru = models.CharField(max_length=255, unique=True)
+
     def __str__(self):
         return self.name_ru
 
-class Product(models.Model): # информация о продукте
+
+class Product(models.Model):  # информация о продукте
     name = models.CharField(max_length=255, unique=True)
     name_ru = models.CharField(max_length=255, unique=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
@@ -45,13 +51,14 @@ class Product(models.Model): # информация о продукте
     is_published = models.BooleanField(default=False)
 
 
-class Product_Stock(models.Model): # связь двух таблиц, где хранится товар, его информация и количество товара на складе
+class Product_Stock(
+    models.Model):  # связь двух таблиц, где хранится товар, его информация и количество товара на складе
     count_product = models.IntegerField()
     id_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
-class Basket(models.Model): # корзина товаров пользователя
+class Basket(models.Model):  # корзина товаров пользователя
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
@@ -69,16 +76,36 @@ class Basket(models.Model): # корзина товаров пользовате
 #         return self.name_ru
 
 
-class Order(models.Model): # таблица по заказам, здесь храниться информация о купленном товаре
+class Order(models.Model):  # таблица по заказам, здесь храниться информация о купленном товаре
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=255, default='Не оплачен') #models.ForeignKey(OrderStatus, on_delete=models.SET_NULL)
+    status = models.CharField(max_length=255,
+                              default='Не оплачен')  # models.ForeignKey(OrderStatus, on_delete=models.SET_NULL)
     type_order = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
-class OrderProducts(models.Model): # информаци о товаре
+
+class OrderProducts(models.Model):  # информаци о товаре
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
     id_order = models.ForeignKey(Order, on_delete=models.CASCADE)
     counter = models.PositiveIntegerField()
     real_price = models.PositiveIntegerField()
+
+
+class DeliveryStatus(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    name_ru = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name_ru
+
+
+class Delivery(models.Model):
+    id_order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    time_created = models.DateTimeField(auto_now_add=True)
+    time_updated = models.DateTimeField(auto_now=True)
+    delivery_date = models.DateTimeField(null=True, blank=True)
+    delivery_closing_date = models.DateTimeField(null=True, blank=True)
+    status_delivery = models.ForeignKey(DeliveryStatus, on_delete=models.CASCADE)
