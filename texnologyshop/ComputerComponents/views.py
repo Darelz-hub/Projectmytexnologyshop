@@ -177,11 +177,11 @@ class PaymentFailed(View):
 
 class PageDelivery(View):
     def get(self, request):
-        deliverys = Delivery.objects.all().filter(id_user=request.user)
-        id_order = deliverys.id_order
-        order_product = OrderProducts.objects.all().filter(id_order=Order.objects.get(id=id_order, id_user=request.user))
-        data = {'deliverys': deliverys, 'order_product': order_product}
-        return render(request, 'computercomponents/delivery.html', data)
+        # deliverys = Delivery.objects.all().filter(id_user=request.user)
+        # print(deliverys)
+        # order = Order.objects.all().filter(id_user=request.user)
+        # data = {'deliverys': deliverys, }# 'order_product': order_product}
+        # return render(request, 'computercomponents/delivery.html', data)
 # class Developers(View):
 #     def get(self, request):
 #         orders = Orders.objects.all().filter(user_id=request.user, status='Оплачен')

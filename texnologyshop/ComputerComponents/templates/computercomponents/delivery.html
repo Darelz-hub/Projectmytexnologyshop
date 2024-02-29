@@ -9,6 +9,7 @@
 {% for delivery in deliverys %}
     <p>{{order_product.id_product.name_ru}}</p>
     <p>{{delivery.status_delivery.name_ru}}</p>
+    <p>{{delivery.id_order.status}}</p>
 {% endfor %}
 </body>
 </html>
