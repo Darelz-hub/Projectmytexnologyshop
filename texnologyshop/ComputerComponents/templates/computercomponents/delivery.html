@@ -1,15 +1,28 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
     <title>Title</title>
 </head>
 <body>
-Заказы
+<h1 class="title">Ваши заказы, {{user.username}}</h1>
 {% for delivery in deliverys %}
-    <p>{{order_product.id_product.name_ru}}</p>
-    <p>{{delivery.status_delivery.name_ru}}</p>
-    <p>{{delivery.id_order.status}}</p>
+    <div class="content">
+        <div class="border-padding">
+            <h1>{{delivery.id_order_products.id_product.name_ru}}</h1>
+            {% if delivery.id_order_products.id_product.image %}
+                <img class="IMAGE" src="{{delivery.id_order_products.id_product.image.url}}" alt="this is trabl ">
+            {% else %}
+                <img class="IMAGE" src="{% static '../img/placeholder.png' %}" alt="placeholder">
+            {% endif %}
+                <p class="content-text">{{delivery.id_order_products.id_product.content}}</p>
+                <p class="content-text">Количество товара: {{delivery.id_order_products.counter}} &nbsp;&nbsp;&nbsp; Цена заказа: {{delivery.id_order_products.real_price}}</p>
+                <p class="content-text">Статус оплаты: {{delivery.id_order.status}} &nbsp;&nbsp;&nbsp; Статус доставки: {{delivery.status_delivery}}</p>
+
+        </div>
+    </div>
 {% endfor %}
 </body>
 </html>

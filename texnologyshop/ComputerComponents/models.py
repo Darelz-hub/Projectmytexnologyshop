@@ -51,9 +51,8 @@ class Product(models.Model):  # информация о продукте
     is_published = models.BooleanField(default=False)
 
 
-class Product_Stock(
-    models.Model):  # связь двух таблиц, где хранится товар, его информация и количество товара на складе
-    count_product = models.IntegerField()
+class Product_Stock(models.Model):  # связь двух таблиц, где хранится товар, его информация и количество товара на складе
+    count_product = models.PositiveIntegerField()
     id_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
@@ -102,8 +101,9 @@ class DeliveryStatus(models.Model):
 
 
 class Delivery(models.Model):
-    id_order = models.ForeignKey(Order, on_delete=models.CASCADE)
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    id_order_products = models.ForeignKey(OrderProducts, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
     delivery_date = models.DateTimeField(null=True, blank=True)

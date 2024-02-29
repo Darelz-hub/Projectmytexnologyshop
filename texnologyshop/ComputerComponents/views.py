@@ -5,11 +5,13 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, re
 from django.views import View
 from django.views.generic.edit import DeleteView
 from ComputerComponents.models import (Product, Product_Stock, Category, SubCategory, Basket, Order, OrderProducts,
-                                       Delivery)
+                                       Delivery,DeliveryStatus)
 from django.conf import settings
 from yookassa import Configuration, Payment
 import uuid
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+
 Configuration.account_id = settings.YOOKASSA_SHOP_ID
 Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
@@ -144,7 +146,8 @@ class CealOrder(View):
             },
             "confirmation": {
                 "type": "redirect",
-                "return_url": request.build_absolute_uri(reverse('payment_success')),
+                "return_url": f"http://127.0.0.1:8000/payment_success?order_id={order_id}&product_id={product_id}"
+                              f"&quantity={quantity}"
             },
             "capture": True,
             "testing": True,
@@ -152,7 +155,31 @@ class CealOrder(View):
         },
                 idempotency_key=idempotence_key)
         confirmation_url = payment.confirmation.confirmation_url
-        # обновление таблицы заказа
+        # request.build_absolute_uri(reverse(payment_success / f'payment_success', kwargs={'order_id': order_id,
+        #                                                                                  'product_id': product_id,
+        #                                                                                  'quantity': quantity})),
+        # kwargs = {'order_id': order_id,
+        #           'product_id': product_id,
+        #           'quantity': quantity})),
+        # f'payment_success?order_id={order_id}'
+        #                                                                  f'&product_id={product_id}&quantity={quantity}'
+        # f'payment_success', kwargs = {'order_id': order_id,
+        #                               'product_id': product_id, 'quantity': quantity}))
+        # БАГ, если спустить строчку return redirect(confirmation_url) в самый низ, то товар изменит статус,
+        # вычтиться из склада и добавиться в доставку раньше, чем пройдёт оплата, если оставить здесь,
+        # то выше перечисленный код не будет работать, оплата пройдёт(успешно), но статус не обновиться,
+        # как выйти из данной ситуации?
+        return redirect(confirmation_url)
+
+
+
+
+class PaymentSuccess(View):
+    def get(self, request, **kwargs):
+        product_id = request.GET.get('product_id')
+        order_id = request.GET.get('order_id')
+        quantity = int(request.GET.get('quantity'))
+        order = Order.objects.get(id=order_id)
         order.status = 'Оплачено'
         order.save()
         # вычитание товара из склада
@@ -160,10 +187,9 @@ class CealOrder(View):
         product_stock.count_product -= quantity
         product_stock.save()
         # добавление нового заказа в доставку
-        #delivery = Delivery.objects.create()
-        return redirect(confirmation_url)
-class PaymentSuccess(View):
-    def get(self, request):
+        Delivery.objects.create(id_user=User.objects.get(id=request.user.id), id_order=Order.objects.get(id=order_id),
+                                        id_order_products=OrderProducts.objects.get(id_order=order_id),
+                                        status_delivery=DeliveryStatus.objects.get(name='In stock'))
         for key in list(request.session.keys()):
             if key == 'session_key':
                 del request.session[key]
@@ -177,11 +203,11 @@ class PaymentFailed(View):
 
 class PageDelivery(View):
     def get(self, request):
-        # deliverys = Delivery.objects.all().filter(id_user=request.user)
-        # print(deliverys)
-        # order = Order.objects.all().filter(id_user=request.user)
-        # data = {'deliverys': deliverys, }# 'order_product': order_product}
-        # return render(request, 'computercomponents/delivery.html', data)
+        deliverys = Delivery.objects.all().filter(id_user=request.user)
+        data = {'deliverys': deliverys}
+        return render(request, 'computercomponents/delivery.html', data)
+
+
 # class Developers(View):
 #     def get(self, request):
 #         orders = Orders.objects.all().filter(user_id=request.user, status='Оплачен')
@@ -190,4 +216,11 @@ class PageDelivery(View):
 
 # def test(request):
 #     return render(request, 'testcase/test.html')
+
+
+
+
+
+
+
 
