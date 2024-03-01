@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 import ComputerComponents.views as components
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     path('create_order/', components.CreateOrder.as_view(), name='create_order'),
     path('ceal_order/', components.CealOrder.as_view(), name='ceal_order'),
     path('payment_success/', components.PaymentSuccess.as_view(), name='payment_success'),
-    path('payment_failed/', components.PaymentFailed.as_view(), name='payment_failed'),
+    #path('payment_failed/', components.PaymentFailed.as_view(), name='payment_failed'),
     path('delivery/', components.PageDelivery.as_view(), name='delivery'),
+    path('page_order', components.PageOrder.as_view(), name='page_order'),
 ]

@@ -11,6 +11,7 @@ from yookassa import Configuration, Payment
 import uuid
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
+from django.db.models import Prefetch
 
 Configuration.account_id = settings.YOOKASSA_SHOP_ID
 Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
@@ -155,6 +156,7 @@ class CealOrder(View):
         },
                 idempotency_key=idempotence_key)
         confirmation_url = payment.confirmation.confirmation_url
+        return redirect(confirmation_url)
         # request.build_absolute_uri(reverse(payment_success / f'payment_success', kwargs={'order_id': order_id,
         #                                                                                  'product_id': product_id,
         #                                                                                  'quantity': quantity})),
@@ -169,13 +171,13 @@ class CealOrder(View):
         # вычтиться из склада и добавиться в доставку раньше, чем пройдёт оплата, если оставить здесь,
         # то выше перечисленный код не будет работать, оплата пройдёт(успешно), но статус не обновиться,
         # как выйти из данной ситуации?
-        return redirect(confirmation_url)
+
 
 
 
 
 class PaymentSuccess(View):
-    def get(self, request, **kwargs):
+    def get(self, request):
         product_id = request.GET.get('product_id')
         order_id = request.GET.get('order_id')
         quantity = int(request.GET.get('quantity'))
@@ -190,15 +192,12 @@ class PaymentSuccess(View):
         Delivery.objects.create(id_user=User.objects.get(id=request.user.id), id_order=Order.objects.get(id=order_id),
                                         id_order_products=OrderProducts.objects.get(id_order=order_id),
                                         status_delivery=DeliveryStatus.objects.get(name='In stock'))
-        for key in list(request.session.keys()):
-            if key == 'session_key':
-                del request.session[key]
         return render(request, 'computercomponents/payment_success.html')
 
 
-class PaymentFailed(View):
-    def get(self, request):
-        return render(request, 'computercomponents/payment_failed.html')
+# class PaymentFailed(View):
+#     def get(self, request):
+#         return render(request, 'computercomponents/payment_failed.html')
 
 
 class PageDelivery(View):
@@ -206,6 +205,21 @@ class PageDelivery(View):
         deliverys = Delivery.objects.all().filter(id_user=request.user)
         data = {'deliverys': deliverys}
         return render(request, 'computercomponents/delivery.html', data)
+
+class PageOrder(View):
+    def get(self, request):
+        orders = Order.objects.filter(
+            id_user=request.user,
+            status='Не оплачено'
+        ).prefetch_related(
+            Prefetch(
+                'orderproducts_set',
+                queryset=OrderProducts.objects.all().select_related('id_product'),
+                to_attr='unpaid_products'
+            )
+        )
+        data = {'orders': orders}
+        return render(request, 'computercomponents/pageorder.html', data)
 
 
 # class Developers(View):

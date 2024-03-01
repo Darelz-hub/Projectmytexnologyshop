@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for order in orders %}
+    {% for order_product in order.unpaid_products %}
+        {{order_product.id_product.name_ru}}
+    {% endfor %}
+{% endfor %}
+</body>
+</html>

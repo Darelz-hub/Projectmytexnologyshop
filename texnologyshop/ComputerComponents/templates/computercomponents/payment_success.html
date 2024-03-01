@@ -1,12 +1,16 @@
 <!DOCTYPE html>
+{% load_static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'CSS/payment-success.css'%}">
 </head>
 <body>
-                <h2> Your payment was successful </h2>
-                <p> Thank you for your payment. we will <br>
-                    be in contact with more details shortly </p>
+<div class="success">
+                <h2> Оплата прошла успешно </h2>
+                <p> Спасибо, что выбрали нас </p>
+                <p> <a href="{% url 'main_page' %}"></a></p>
+</div>
 </body>
 </html>

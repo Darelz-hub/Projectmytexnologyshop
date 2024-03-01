@@ -21,12 +21,21 @@
                                             {% endif %}
                                         {% endfor %}
                                         <div>
+                                            {% if user.is_authenticated %}
+                                                <form class="buy" method="POST" action="{% url 'basket_add_product' %}">
+                                                    {% csrf_token %}
+                                                    <p class="price">Цена:{{laptop.price}}</p>
+                                                    <button class="button-buy" name="product_id" value={{laptop.id}}>В корзину</button>
+                                                </form>
+                                            {% else %}
+                                                 <form class="buy" method="POST" action="{% url 'users:login' %}">
+                                                    {% csrf_token %}
+                                                    <p class="price">Цена:{{laptop.price}}</p>
+                                                    <button class="button-buy">В корзину</button>
+                                                </form>
+                                            {% endif %}
 
-                                            <form class="buy" method="POST" action="{% url 'basket_add_product' %}">
-                                                {% csrf_token %}
-                                                <p class="price">Цена:{{laptop.price}}</p>
-                                                <button class="button-buy" name="product_id" value={{laptop.id}}>В корзину</button>
-                                            </form>
+
                                         </div>
                                     </div>
                             </div>

@@ -63,3 +63,17 @@ font-size: xx-large;
 wight: 100%;
 height: 100%;
 }
+.emply-cart{
+font-size: xx-large;
+text-align: center;
+margin-top: 50%;
+margin-bottom: 50%;
+}
+/*paginator*/
+.pagination{
+font-size: xx-large;
+text-align: center;
+margin-top: 5%;
+margin-bottom: 5%;
+}
+

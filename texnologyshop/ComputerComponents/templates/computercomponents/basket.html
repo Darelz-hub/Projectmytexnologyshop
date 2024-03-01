@@ -4,7 +4,7 @@
 <main>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
 {% if baskets %}
-    <h1>Корзина товаров</h1>
+    <h1 class="title">Корзина товаров, {{user.username}}</h1>
 {% for basket in baskets %}
                             <div class="content">
                                     <div class="border-padding">
@@ -20,7 +20,7 @@
                                                 <p class="count"> В наличии: {{count.count_product}} штук </p>
                                             {% endif %}
                                          {% endfor %}
-                                        <p>В корзине: {{basket.quantity}}</p>
+                                        <p class="count">В корзине: {{basket.quantity}}</p>
                                         <div>
                                             <form class="buy" method="POST" action="{% url 'form_order' %}">
                                                 {% csrf_token %}
@@ -36,7 +36,7 @@
                             </div>
         {% endfor %}
 {% else %}
-Корзина пуста
+<h1 class="emply-cart">Корзина пуста:(</h1>
 {% endif%}
 </main>
 {% endblock %}
