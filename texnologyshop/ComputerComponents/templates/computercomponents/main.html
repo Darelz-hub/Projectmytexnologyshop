@@ -2,7 +2,8 @@
 {% block content %}
 {% load static %}
 <main>
-    <script src="{% static 'AddProductToBasket.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'js/AddProductToBasket.js' %}"></script>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
     <h1 class="title"><a href="../products/Laptop"> Ноутбуки</a></h1>
         {% for laptop in laptops %}
@@ -26,7 +27,7 @@
 <!--                                                <form class="buy" method="POST" action="{% url 'basket_add_product' %}">-->
                                                     {% csrf_token %}
                                                     <p class="price">Цена:{{laptop.price}}</p>
-                                                    <button class="button-add-product" id="AddProductToBasket" data-product="{{laptop.id}}" >В корзину</button>
+                                                    <button class="button-add-product" id="AddProductToBasket" data-product_id="{{laptop.id}}"> В корзину </button>
 <!--                                                    <button class="button-add-product" id="AddProductToBasket" name="product_id" value={{laptop.id}}>В корзину</button> старая-->
 <!--                                                </form>-->
                                             {% else %}
