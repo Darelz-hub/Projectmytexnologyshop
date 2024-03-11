@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{% static 'js/AddProductToBasket.js' %}"></script>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
+    <div class="adaptive">
     <h1 class="title"><a href="{% url 'products' 'Laptop' %}"> Ноутбуки</a></h1>
         {% for laptop in laptops %}
             {% if forloop.counter < 4 %}
@@ -120,5 +121,6 @@
                             </div>
             {% endif %}
         {% endfor %}
+    </div>
 </main>
 {% endblock %}
