@@ -86,14 +86,17 @@ class BasketAddProduct(View): # добавление товара в карзи�
     def post(self, request):
         if request.method == 'POST':
             product_id = request.POST.get('product_id')
-            product = Product.objects.get(id=int(product_id))
+            print('--------------------------------')
+            print(product_id)
+            print('--------------------------------')
+            product = Product.objects.get(id=product_id)
             baskets = Basket.objects.filter(user=request.user, product=product)
             if not baskets.exists():
                 Basket.objects.create(user=request.user, product=product, quantity=1)
                 return JsonResponse({'message': 'Товар успешно добавлен'})
             else:
                 basket = baskets.first()
-                basket.quantity += 1
+                # basket.quantity += 1
                 basket.save()
                 return JsonResponse({'message': 'Товар успешно добавлен'})
         return JsonResponse({'error': 'ERROR'}, status=400)

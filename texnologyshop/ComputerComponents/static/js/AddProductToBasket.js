@@ -1,31 +1,10 @@
 $(document).ready(function(){
     // Назначим обработчик события на кнопку
-    $("#AddProductToBasket").on('click', function(){
-        const product_id = $(this).data('product');
+    $(".button-add-product").on('click', function(){
+        const product_id = $(this).data('product_id');
         AddProductToBasketAJAX(product_id);
     });
 });
-function AddProductToBasketAJAX(product_id){
-    $.ajax({
-        url: 'baskets/add_product/',
-        type: 'POST',
-        data: {
-            'product_id': product_id
-        },
-        dataType: 'json',
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-        },
-        success: function(data){
-            if (data.message) {
-                alert(data.message);
-            }
-        },
-        error: function(error){
-            console.log('Ошибка:', error);
-        }
-    });
-}
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -39,4 +18,29 @@ function getCookie(name) {
             }
         }
     return cookieValue;
+}
+function AddProductToBasketAJAX(product_id){
+    $.ajax({
+        url: '/baskets/add_product/',
+        type: 'POST',
+        data: {
+            'product_id': product_id
+        },
+        dataType: 'json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+        },
+        success: function(data){
+            if (data.message) {
+                $('.push-sms').css("display", "block");
+                setTimeout(function()
+            {
+                $('.push-sms').css("display", "none");
+            }, 5000);
+            }
+        },
+        error: function(data){
+            console.log('Ошибка:', data.error);
+        }
+    });
 }

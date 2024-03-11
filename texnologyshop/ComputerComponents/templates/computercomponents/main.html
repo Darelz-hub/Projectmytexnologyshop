@@ -1,11 +1,15 @@
 {% extends 'base.html'%}
 {% block content %}
 {% load static %}
+
+<div class="push-sms-wrapper">
+    <div class="push-sms">Товар успешно добавлен!</div>
+</div>
 <main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{% static 'js/AddProductToBasket.js' %}"></script>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-    <h1 class="title"><a href="../products/Laptop"> Ноутбуки</a></h1>
+    <h1 class="title"><a href="{% url 'products' 'Laptop' %}"> Ноутбуки</a></h1>
         {% for laptop in laptops %}
             {% if forloop.counter < 4 %}
                             <div class="content">
@@ -24,12 +28,11 @@
                                         {% endfor %}
                                         <div>
                                             {% if user.is_authenticated %}
-<!--                                                <form class="buy" method="POST" action="{% url 'basket_add_product' %}">-->
-                                                    {% csrf_token %}
+                                                <div class="buy">
+                                                {% csrf_token %}
                                                     <p class="price">Цена:{{laptop.price}}</p>
-                                                    <button class="button-add-product" id="AddProductToBasket" data-product_id="{{laptop.id}}"> В корзину </button>
-<!--                                                    <button class="button-add-product" id="AddProductToBasket" name="product_id" value={{laptop.id}}>В корзину</button> старая-->
-<!--                                                </form>-->
+                                                    <button type="submit" class="button-add-product"  data-product_id={{laptop.id}}> В корзину </button>
+                                                </div>
                                             {% else %}
                                                  <form class="buy" method="POST" action="{% url 'users:login' %}">
                                                     {% csrf_token %}
@@ -45,7 +48,7 @@
             {% endif %}
         {% endfor %}
 
-    <h1 class="title"><a href="../products/pc">Компьютеры</a></h1>
+    <h1 class="title"><a href="{% url 'products' 'PC' %}">Компьютеры</a></h1>
         {% for pc in pcs %}
             {% if forloop.counter < 4 %}
                             <div class="content">
@@ -64,11 +67,11 @@
                                         {% endfor %}
                                         <div>
                                             {% if user.is_authenticated %}
-                                                <form class="buy" method="POST" action="{% url 'basket_add_product' %}">
-                                                    {% csrf_token %}
+                                                <div class="buy">
+                                                {% csrf_token %}
                                                     <p class="price">Цена:{{pc.price}}</p>
-                                                    <button class="button-add-product" id="AddProductToBasket" name="product_id" value={{pc.id}}>В корзину</button>
-                                                </form>
+                                                    <button type="submit" class="button-add-product"  data-product_id={{pc.id}}> В корзину </button>
+                                                </div>
                                             {% else %}
                                                  <form class="buy" method="POST" action="{% url 'users:login' %}">
                                                     {% csrf_token %}
@@ -81,7 +84,7 @@
                             </div>
             {% endif %}
         {% endfor %}
-    <h1 class="title"><a href="../products/components"> Компьютерные компоненты </a></h1>
+    <h1 class="title"><a href="{% url 'products' 'Components' %}"> Компьютерные компоненты </a></h1>
         {% for component in components %}
             {% if forloop.counter < 4 %}
                             <div class="content">
@@ -100,11 +103,11 @@
                                         {% endfor %}
                                         <div>
                                             {% if user.is_authenticated %}
-                                                <form class="buy" method="POST" action="{% url 'basket_add_product' %}">
-                                                    {% csrf_token %}
+                                                <div class="buy">
+                                                {% csrf_token %}
                                                     <p class="price">Цена:{{component.price}}</p>
-                                                    <button class="button-add-product" id="AddProductToBasket" name="product_id" value={{component.id}}>В корзину</button>
-                                                </form>
+                                                    <button type="submit" class="button-add-product"  data-product_id={{component.id}}> В корзину </button>
+                                                </div>
                                             {% else %}
                                                  <form class="buy" method="POST" action="{% url 'users:login' %}">
                                                     {% csrf_token %}

@@ -76,4 +76,22 @@ text-align: center;
 margin-top: 5%;
 margin-bottom: 5%;
 }
-
+.push-sms-wrapper{
+position: fixed;
+width: 100vw;
+top: 0;
+right: 0;
+left: 0;
+padding-top: 10px;
+}
+.push-sms{
+position: relative;
+margin: 0 auto;
+padding: 10px;
+background-color: green;
+border-radius: 10px;
+width: 20%;
+text-align: center;
+display: none;
+color: white;
+}

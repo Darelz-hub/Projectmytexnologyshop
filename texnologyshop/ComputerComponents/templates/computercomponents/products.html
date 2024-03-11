@@ -1,8 +1,14 @@
 {% extends 'base.html'%}
 {% block content %}
 {% load static %}
+<div class="push-sms-wrapper">
+    <div class="push-sms">Товар успешно добавлен!</div>
+</div>
 <main>
-<link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'js/AddProductToBasket.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
         <h1 class="title">{{title.category}}</h1>
         {% for product in page_obj %}
                             <div class="content">
@@ -21,11 +27,11 @@
                                         {% endfor %}
                                         <div>
                                             {% if user.is_authenticated %}
-                                            <form class="buy" method="POST" action="{% url 'basket_add_product' %}">
+                                                <div class="buy">
                                                 {% csrf_token %}
-                                                <p class="price">Цена:{{product.price}}</p>
-                                                <button class="button-buy" name="product_id" value={{product.id}}> В корзину </button>
-                                            </form>
+                                                    <p class="price">Цена:{{product.price}}</p>
+                                                    <button type="submit" class="button-add-product"  data-product_id={{product.id}}> В корзину </button>
+                                                </div>
                                             {% else %}
                                             <form class="buy" method="POST" action="{% url 'users:login' %}">
                                                 {% csrf_token %}
