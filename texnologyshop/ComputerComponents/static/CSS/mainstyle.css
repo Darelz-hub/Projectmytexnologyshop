@@ -7,29 +7,31 @@ overflow: hidden;
 margin-right: auto;
 margin-left: auto;
 margin-top: 5%;
-width: 80%;
-height: 200%;
+width: 100%;
+height: 100%;
 border: 1px solid gray;
 border-radius: 10%;
 padding: 5%, 5%, 5%, 5%;
 }
 .IMAGE{
+margin-top: 5%;
 float: left;
-width: 20%;
-height: 20%;
+width: 25vw;
+height: 25vw;
 margin-right: 5%;
 padding-bottom: 5%;
 }
 .title{
-font-size: xx-large;
+font-size: xxx-large;
 margin-top: 5%;
 margin-left: 10%;
 text-align: left;
 }
 .content-text{
+margin-top: 5%;
 width: 100%;
 #float: right;
-font-size: xx-large;
+font-size: xxx-large;
 }
 .border-padding{
 padding-left: 5%;
@@ -37,16 +39,20 @@ padding-right: 5%;
 padding-top: 5%;
 padding-bottom: 5%;
 }
-
+.content-title{
+font-size: xxx-large;
+}
 .buy{
 float: right;
 display: flex;
 flex-direction: row;
+margin-bottom: 5%;
+margin-top: 5%;
 }
 .price{
 margin-top: 0%;
 margin-right: 10px;
-font-size: xx-large;
+font-size: 3vw;
 width: 100%;
 height: 100%;
 }
@@ -56,18 +62,12 @@ text-align: center;
 width: 100%;
 height: 100%;
 background-color: orange;
-font-size: x-large;
+font-size: 3vw;
 }
 .count{
-font-size: xx-large;
+font-size: xxx-large;
 wight: 100%;
 height: 100%;
-}
-.emply-cart{
-font-size: xx-large;
-text-align: center;
-margin-top: 50%;
-margin-bottom: 50%;
 }
 /*paginator*/
 .pagination{
@@ -94,4 +94,177 @@ width: 20%;
 text-align: center;
 display: none;
 color: white;
+}
+.adaptive{
+width: 1200px;
+height: 100%;
+margin: auto;
+}
+
+@media (max-width: 1200px) {
+  .adaptive {
+    width: 1000px;
+  }
+  .price{
+  font-size: 5vw;
+  }
+  .button-add-product{
+  font-size: 5vw;
+  }
+  .IMAGE{
+  width: 30vw;
+  height: 30vw;
+  }
+  .content-text{
+  font-size: 4vw;
+  }
+  .count{
+  font-size: 4vw
+  }
+
+}
+
+@media (max-width: 1000px) {
+  .adaptive {
+    width: 768px;
+  }
+  .content-text{
+  font-size: 3.5vw;
+  }
+  .count{
+  font-size: 4vw;
+  }
+  .IMAGE{
+  width: 40vw;
+  height: 40vw;
+  }
+  .content-title{
+  font-size: 4vw;
+  }
+  .button-add-product{
+  font-size: 4vw;
+  }
+  .price{
+  font-size: 4vw;
+  }
+  .title{
+  font-size: 6vw;
+  text-align: center;
+  }
+  .push-sms{
+  width: 30%;
+  }
+}
+@media (max-width: 768px) {
+  .adaptive {
+    width: 480px;
+  }
+  .content-text{
+  font-size: 5vw;
+  }
+  .content-title{
+  font-size: 3.9vw;
+  }
+  .count{
+  font-size: 5vw;
+  }
+  .IMAGE{
+  width: 50vw;
+  height: 50vw;
+  }
+  .button-add-product{
+  font-size: 5vw;
+  }
+  .price{
+  font-size: 5vw;
+  }
+  .title{
+  font-size: 7vw;
+  }
+  .buy{
+  float: none;
+  }
+  .push-sms{
+  width: 40%;
+  }
+  .push-sms-wrapper{
+  width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .adaptive {
+    width: 320px;
+  }
+    .adaptive {
+    width: 480px;
+  }
+  .content-text{
+  font-size: 8vw;
+  }
+  .content-title{
+  font-size: 6vw;
+  text-align: center;
+  }
+  .count{
+  font-size: 8vw;
+  }
+  .IMAGE{
+  width: 100vw;
+  height: 100vw;
+  }
+  .button-add-product{
+  font-size: 8vw;
+  }
+  .price{
+  font-size: 10vw;
+  }
+  .title{
+  font-size: 10vw;
+  }
+  .buy{
+  float: none;
+  }
+  .push-sms{
+  width: 50%;
+  }
+  .push-sms-wrapper{
+  width: 100%;
+  }
+}
+@media (max-width: 320px) {
+.adaptive {
+    width: 100%;
+  }
+  .content-text{
+  font-size: 8vw;
+  }
+  .content-title{
+  font-size: 6vw;
+  text-align: center;
+  }
+  .count{
+  font-size: 8vw;
+  }
+  .IMAGE{
+  width: 100vw;
+  height: 100vw;
+  }
+  .button-add-product{
+  font-size: 7.2vw;
+  }
+  .price{
+  font-size: 9vw;
+  }
+  .title{
+  font-size: 10vw;
+  }
+  .buy{
+  float: none;
+  }
+  .push-sms{
+  width: 70%;
+  }
+  .push-sms-wrapper{
+  width: 100%;
+  }
 }

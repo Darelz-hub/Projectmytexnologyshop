@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content %}
 {% load static %}
-
+<div class="adaptive">
 <div class="push-sms-wrapper">
     <div class="push-sms">Товар успешно добавлен!</div>
 </div>
@@ -9,13 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{% static 'js/AddProductToBasket.js' %}"></script>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-    <div class="adaptive">
     <h1 class="title"><a href="{% url 'products' 'Laptop' %}"> Ноутбуки</a></h1>
         {% for laptop in laptops %}
             {% if forloop.counter < 4 %}
                             <div class="content">
                                     <div class="border-padding">
-                                        <h1>{{laptop.name_ru}}</h1>
+                                        <h1 class="content-title">{{laptop.name_ru}}</h1>
                                         {% if laptop.image %}
                                             <img class="IMAGE" src="{{laptop.image.url}}" alt="this is trabl ">
                                         {% else %}
@@ -24,7 +23,7 @@
                                         <p class="content-text">{{laptop.content}}</p>
                                         {% for count in counts %}
                                             {% if count.id_product_id == laptop.id %}
-                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                                <p class="count"> В наличии: {{count.count_product}}</p>
                                             {% endif %}
                                         {% endfor %}
                                         <div>
@@ -54,7 +53,7 @@
             {% if forloop.counter < 4 %}
                             <div class="content">
                                     <div class="border-padding">
-                                        <h1>{{pc.name_ru}}</h1>
+                                        <h1 class="content-title">{{pc.name_ru}}</h1>
                                         {% if pc.image %}
                                             <img class="IMAGE" src="{{pc.image.url}}" alt="this is trabl ">
                                         {% else %}
@@ -63,7 +62,7 @@
                                         <p class="content-text"><br>{{pc.content}}</p>
                                         {% for count in counts %}
                                             {% if count.id_product_id == pc.id %}
-                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                                <p class="count"> В наличии: {{count.count_product}}</p>
                                             {% endif %}
                                         {% endfor %}
                                         <div>
@@ -85,12 +84,12 @@
                             </div>
             {% endif %}
         {% endfor %}
-    <h1 class="title"><a href="{% url 'products' 'Components' %}"> Компьютерные компоненты </a></h1>
+    <h1 class="title"><a href="{% url 'products' 'Components' %}"> Компоненты </a></h1>
         {% for component in components %}
             {% if forloop.counter < 4 %}
                             <div class="content">
                                     <div class="border-padding">
-                                        <h1>{{component.name_ru}}</h1>
+                                        <h1 class="content-title">{{component.name_ru}}</h1>
                                         {% if component.image %}
                                             <img class="IMAGE" src="{{component.image.url}}" alt="this is trabl ">
                                         {% else %}
@@ -99,7 +98,7 @@
                                         <p class="content-text">{{component.content}}</p>
                                         {% for count in counts %}
                                             {% if count.id_product_id == component.id %}
-                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                                <p class="count"> В наличии: {{count.count_product}}</p>
                                             {% endif %}
                                         {% endfor %}
                                         <div>
@@ -121,6 +120,6 @@
                             </div>
             {% endif %}
         {% endfor %}
-    </div>
 </main>
+</div>
 {% endblock %}
