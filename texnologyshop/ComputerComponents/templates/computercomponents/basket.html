@@ -3,7 +3,8 @@
 {% load static %}
 <main>
     <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
-{% if baskets %}
+<div class="adaptive">
+    {% if baskets %}
     <h1 class="title">Корзина товаров, {{user.username}}</h1>
 {% for basket in baskets %}
                             <div class="content">
@@ -17,19 +18,22 @@
                                         <p class="content-text"><br>{{basket.product.content}}</p>
                                         {% for count in counts %}
                                             {% if count.id_product_id == basket.product.id %}
-                                                <p class="count"> В наличии: {{count.count_product}} штук </p>
+                                                <p class="count"> В наличии: {{count.count_product}}</p>
+                                                <p class="count">В корзине: {{basket.quantity}}</p>
                                             {% endif %}
                                          {% endfor %}
-                                        <p class="count">В корзине: {{basket.quantity}}</p>
-                                        <div>
+                                        <div class="buy">
                                             <form class="buy" method="POST" action="{% url 'form_order' %}">
                                                 {% csrf_token %}
                                                 <p class="price">Цена:{{basket.product.price}}</p>
-                                                <button class="button-buy" name="basket_id" value={{basket.id}}> Купить </button>
+                                                <button class="button-add-product" name="basket_id" value={{basket.id}}> Купить </button>
                                             </form>
-                                            <form method="POST" action="{% url 'basket_delete_product' %}">
+                                            <form class="buy" method="POST" action="{% url 'basket_delete_product' %}">
                                                 {% csrf_token %}
-                                                <button type="submit" name="product_id" value={{basket.id}}>Удалить</button>
+                                                <button class="button-delete-product" type="submit" name="product_id" value={{basket.id}}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+  <path id="trash-basket" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+</svg></button>
                                             </form>
                                         </div>
                                     </div>
@@ -38,5 +42,6 @@
 {% else %}
 <h1 class="emply-cart">Корзина пуста:(</h1>
 {% endif%}
+</div>
 </main>
 {% endblock %}

@@ -20,15 +20,13 @@ right: 0;
 display: flex;
 justify-content: center;
 align-items: center;
-padding: 0 5%;
 box-shadow: 0 5px 10px white;
 }
-header .logo{
-    width: 60%;
-    height: 50%;
-    margin: 0;
-    padding: 0;
-}
+ header a .logo{
+  width: 200px;
+  height: 200px;
+  padding-right: 10%;
+  }
 header nav ul li{
 position: relative;
 float: left;
@@ -40,8 +38,10 @@ margin-right: 0%;
 padding: 5px;
 color: black;
 font-size: x-large;
+font-weight: bold;
 display: block;
 }
+
 header nav ul li a:hover{
 background: blue;
 color: white;
@@ -105,7 +105,6 @@ form {
   background: none;
   border: none;
   position: absolute;
-  top: -2px;
   right: 0;
 }
 
@@ -124,9 +123,70 @@ display: block;
 float: left;
 }
 
-/*
-nav ul li a img{
-height: 10%;
-width: 10%;
-object-fit: cover;
-}*/
+@media (max-width: 1200px) {
+  header nav ul li a{
+  font-size: 1.4em;
+  font-weight: bold;
+  }
+  header a .logo{
+  width: 200px;
+  height: 200px;
+  }
+  .d7 input{
+  width: 120px;
+  height: 40px;
+  }
+  .d7 input:focus{
+  width: 150px;
+  }
+  .d7 button:before{
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 40px;
+  font-size: 1.5em;
+  color: #fff;
+}
+
+@media (max-width: 1000px) {
+  header nav ul li a{
+  font-size: 2vw;
+  font-weight: bold;
+  }
+  header a .logo{
+  width: 175px;
+  height: 175px;
+  }
+  .d7 input{
+  width: 100px;
+  }
+}
+@media (max-width: 768px) {
+  header nav ul li a{
+  font-size: 2.35vw;
+  font-weight: bold;
+  }
+  header a .logo{
+  width: 150px;
+  height: 150px;
+  }
+  .d7 input{
+  width: 125px;
+  height: 35px;
+  }
+
+}
+@media (max-width: 480px) {
+  header nav ul li a{
+  font-size: 1vw;
+  font-weight: bold;
+  }
+  header a .logo{
+  width: 150px;
+  height: 150px;
+  }
+  .d7 input{
+  width: 90px;
+  height: 35px;
+  }
+}
+
