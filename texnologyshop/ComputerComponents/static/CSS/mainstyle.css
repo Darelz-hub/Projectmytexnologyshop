@@ -80,6 +80,9 @@ font-size: xxx-large;
 wight: 100%;
 height: 100%;
 }
+.color-payment{
+background-color: #05fc32;
+}
 /*paginator*/
 .pagination{
 font-size: xx-large;
@@ -127,7 +130,7 @@ margin: auto;
   height: 30vw;
   }
   .content-text{
-  font-size: 3vw;
+  font-size: 2.9vw;
   }
   .count{
   font-size: 3vw

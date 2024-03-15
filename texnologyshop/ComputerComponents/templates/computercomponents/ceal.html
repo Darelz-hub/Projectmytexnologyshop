@@ -1,21 +1,36 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static '/CSS/ceal.css' %}">
 </head>
 <body>
-<form method="POST" action="{% url 'ceal_order' %}">
-    {% csrf_token %}
-    <p>Название товара: {{order_products.id_product.name_ru}}</p>
-    <p>Адрес: {{order.address}}</p>
-    <p>Количество: {{ order_products.counter }}</p>
-    </p>Финальная цена: {{ order_products.real_price }}
-    <input type="hidden" name="product_id" value="{{ order_products.id_product.id}}">
-    <input type="hidden" name="quantity" value={{order_products.counter}}>
-    <input type="hidden" name="real_price" value={{order_products.real_price}}>
-    <input type="hidden" name="order_id" value={{order.id}}>
-    <button type="submit">Оплатить</button>
-</form>
+    <main>
+        <div class="adaptive">
+            <h1 class="title">Оплата</h1>
+            <form method="POST" action="{% url 'ceal_order' %}">
+                {% csrf_token %}
+                <div class="content">
+                <p>Название товара: {{order_products.id_product.name_ru}}</p>
+                <p>Адрес: {{order.address}}</p>
+                <p>Количество: {{ order_products.counter }}</p>
+                <p>Финальная цена: {{ order_products.real_price }} </p>
+                </div>
+                <input type="hidden" name="product_id" value="{{ order_products.id_product.id}}">
+                <input type="hidden" name="quantity" value={{order_products.counter}}>
+                <input type="hidden" name="real_price" value={{order_products.real_price}}>
+                <input type="hidden" name="order_id" value={{order.id}}>
+                <button class="button-ceal" type="submit">Оплатить</button>
+            </form>
+            <form method="POST" action="{% url 'order_products_delete' %}">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{order.id}}">
+                <input type="hidden" name="order_product_id" value="{{order_products.id}}">
+                <button type="submit" class="button-ceal">Отмена</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>

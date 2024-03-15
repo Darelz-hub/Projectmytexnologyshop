@@ -1,13 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<main>
-    <a href="{% url 'delivery' %}">Ваши заказы </a>
-    <a href="{% url 'page_order' %}">Ожидают оплаты</a>
-</main>
-</body>
-</html>
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+<div class="adaptive">
+    <main>
+        <link rel="stylesheet" href="{% static '/CSS/user_profile.css' %}">
+<!--        Боковое меню-->
+        <aside>
+            <p><a href="{% url 'delivery' %}">Ваши заказы </a></p>
+            <p><a href="{% url 'page_order' %}">Ожидают оплаты</a></p>
+        </aside>
+        <div class="content">
+            <h1 class="title"> Ваш профиль</h1>
+            <div class="content-text">
+                <p>Никнейм: {{user.username}} </p>
+                <p>Имя: {{user.first_name}}</p>
+                <p>Фамилия: {{user.last_name}}</p>
+                <p>Email: {{user.email}}</p>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

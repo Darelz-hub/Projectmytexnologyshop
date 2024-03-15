@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.shortcuts import render
+from django.contrib.auth.models import User
 # Create your views here.
 from .forms import *
 class LoginUser(LoginView):
@@ -18,6 +19,7 @@ class RegistrationUser(CreateView):
 
 class ProfileUser(View):
     def get(self, request):
-        return render(request, 'users/profile_user.html')
+        user = User.objects.get(username=request.user)
+        return render(request, 'users/profile_user.html', {'user': user})
 
 

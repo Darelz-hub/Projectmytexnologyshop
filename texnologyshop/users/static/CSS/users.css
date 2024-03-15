@@ -6,10 +6,8 @@ text-align: center;
 font-size: xx-large;
 border-radius:100px;
 height: 100%;
+margin: auto;
 margin-top: 5%;
-margin-right: 40%;
-margin-left: 40%;
-margin-bottom: 30%;
 }
 a{
 color:  #001bff;

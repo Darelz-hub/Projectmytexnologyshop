@@ -5,49 +5,53 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'CSS/order.css'%}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'js/order.js' %}"></script>
 </head>
 <body>
 <main>
-<div>
-<h1>Оформление Заказа</h1>
-<p>{{basket.product.name_ru}}</p>
-<p>Количество: {{basket.quantity}}</p>
-<p>Цена за одну штуку: {{basket.product.price}}</p>
-
-<form method="POST" ACTION="{% url 'create_order' %}">
-    {% csrf_token %}
-    <input type="hidden" name="product_id" value={{basket.product.id}}>
-    <input type="hidden" name="quantity" value={{basket.quantity}}>
-    <h1>Способ доставки</h1>
-    <div class="tabs">
-        <div class="tab">
-            <input type="radio" id="tab1" name="tab-group" checked>
-            <label for="tab1" class="tab-title">Доставка</label>
-            <section class="tab-content">
-                <input type="hidden" name="type_order" value="Доставка">
-                <label for="address">Введите ваш адрес: </label>
-                <input type="text" name="address" id="address">
-                <br>
-                <button type="submit">Создать заказ</button>
-            </section>
-        </div>
-        <div class="tab">
-            <input type="radio" id="tab2" name="tab-group">
-            <label for="tab2" class="tab-title">Самовывоз</label>
-            <section class="tab-content">
-              <input type="hidden" name="type_order" value="Самовывоз">
-                <input type="hidden" name="address" value="Торговый центр Скала ул. Петрищева, 35 а, Дзержинск, Нижегородская обл., 606037">
-                <h3>Где забирать товар?</h3>
-                <p>Торговый центр Скала ул. Петрищева, 35 а, Дзержинск, Нижегородская обл., 606037</p>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2217.7398708560313!2d43.40938327647277!3d56.230730455079105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x414e3a5a4ffecf91%3A0x359784392f4952a3!2z0KHQutCw0LvQsA!5e0!3m2!1sru!2sru!4v1708864142136!5m2!1sru!2sru" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <br>
-                <button type="submit">Создать заказ</button>
-            </section>
-        </div>
+    <div class="adaptive">
+        <h1 class="title">Оформление Заказа</h1>
+            <div class="content">
+                <p>{{basket.product.name_ru}}</p>
+                <p>Количество: {{basket.quantity}}</p>
+                <p>Цена за одну штуку: {{basket.product.price}}</p>
+            </div>
+        <form method="POST" ACTION="{% url 'create_order' %}">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value={{basket.product.id}}>
+            <input type="hidden" name="quantity" value={{basket.quantity}}>
+            <h1 id="title">Способ доставки</h1>
+            <div class="tabs">
+                <div class="tab">
+                    <input type="radio" id="tab1" name="tab-group" checked>
+                    <label for="tab1" class="tab-title">Доставка</label>
+                    <section class="tab-content">
+                        <input type="hidden" id="type_order1" value="Доставка">
+                        <label class="content" for="address">Введите ваш адрес: </label>
+                        <input class="input-address" type="text" id="address1">
+                        <br>
+                        <button class="button-order" id="button-order1" type="submit">Создать заказ</button>
+                    </section>
+                </div>
+                <div class="tab">
+                    <input type="radio" id="tab2" name="tab-group">
+                    <label for="tab2" class="tab-title">Самовывоз</label>
+                    <section class="tab-content">
+                        <input type="hidden" id="type_order2" value="Самовывоз">
+                        <input type="hidden" id="address2" value="Торговый центр Скала ул. Петрищева, 35 а, Дзержинск, Нижегородская обл., 606037">
+                        <h3 class="content">Где забирать товар?</h3>
+                        <p class="content">Торговый центр Скала ул. Петрищева, 35 а, Дзержинск, Нижегородская обл., 606037</p>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2217.7398708560313!2d43.40938327647277!3d56.230730455079105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x414e3a5a4ffecf91%3A0x359784392f4952a3!2z0KHQutCw0LvQsA!5e0!3m2!1sru!2sru!4v1708864142136!5m2!1sru!2sru" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <br>
+                        <button class="button-order" id="button-order2" type="submit">Создать заказ</button>
+                    </section>
+                </div>
+            </div>
+            <input type="hidden" name="address" id="address" value="">
+            <input type="hidden" name="type_order" id="type_order" value="">
+        </form>
     </div>
-
-</form>
-</div>
 </main>
 </body>
 </html>

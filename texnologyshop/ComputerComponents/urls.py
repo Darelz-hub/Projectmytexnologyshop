@@ -17,5 +17,6 @@ urlpatterns = [
     path('payment_success/', components.PaymentSuccess.as_view(), name='payment_success'),
     #path('payment_failed/', components.PaymentFailed.as_view(), name='payment_failed'),
     path('delivery/', components.PageDelivery.as_view(), name='delivery'),
-    path('page_order', components.PageOrder.as_view(), name='page_order'),
+    path('page_order/', components.PageOrder.as_view(), name='page_order'),
+    path('order_products_delete/', components.OrderProductsDelete.as_view(), name='order_products_delete'),
 ]

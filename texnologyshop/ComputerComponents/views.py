@@ -1,5 +1,5 @@
 import requests
-from django.urls import reverse
+from django.urls import reverse , reverse_lazy
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
 from django.views import View
@@ -89,14 +89,14 @@ class BasketAddProduct(View): # добавление товара в карзи�
             print('--------------------------------')
             print(product_id)
             print('--------------------------------')
-            product = Product.objects.get(id=product_id)
+            product = Product.objects.get(id=int(product_id))
             baskets = Basket.objects.filter(user=request.user, product=product)
             if not baskets.exists():
                 Basket.objects.create(user=request.user, product=product, quantity=1)
                 return JsonResponse({'message': 'Товар успешно добавлен'})
             else:
                 basket = baskets.first()
-                # basket.quantity += 1
+                basket.quantity += 1
                 basket.save()
                 return JsonResponse({'message': 'Товар успешно добавлен'})
         return JsonResponse({'error': 'ERROR'}, status=400)
@@ -129,11 +129,20 @@ class CreateOrder(View):
             real_price = product.price * quantity
             type_order = request.POST.get('type_order')
             address = request.POST.get('address')
-            order = Order.objects.create(id_user=request.user, status='Не оплачено',type_order=type_order, address=address)
+            order = Order.objects.create(id_user=request.user, status='Не оплачено',type_order=type_order,
+                                         address=address)
             order_id = order.id
             order_products = OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
             return render(request, 'computercomponents/ceal.html', {'order': order, 'order_products': order_products})
-
+class OrderProductsDelete(View):
+    def post(self, request):
+        order_id = request.POST.get('order_id')
+        order_product_id = request.POST.get('order_product_id')
+        order = Order.objects.get(id=order_id)
+        order_product = OrderProducts.objects.get(id=order_product_id)
+        order_product.delete()
+        order.delete()
+        return HttpResponseRedirect(reverse_lazy('main_page'))
 class CealOrder(View):
     def post(self, request):
         # получение данных

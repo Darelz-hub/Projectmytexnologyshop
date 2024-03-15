@@ -1,0 +1,65 @@
+main{
+margin-top: 5%;
+}
+.adaptive{
+width: 1200px;
+height: 100%;
+margin: auto;
+border: 1px solid #000;
+border-radius: 5%;
+background-color: #6DBFCB;
+}
+.title{
+font-size: 5vw;
+text-align: center;
+}
+.content{
+font-size: 4vw;
+padding-left: 5%;
+padding-right: 5%;
+}
+.button-ceal{
+font-size: 5vw;
+text-align: center;
+margin: auto;
+display: block;
+margin-bottom: 3%;
+}
+.button-ceal:hover{
+box-shadow: 5px 5px 5px #3e3d3d;
+}
+@media (max-width: 1600px) {
+  .adaptive {
+    width: 1200px;
+  }
+}
+@media (max-width: 1200px) {
+  .adaptive {
+    width: 1000px;
+  }
+
+}
+
+@media (max-width: 1000px) {
+  .adaptive {
+    width: 768px;
+  }
+
+}
+@media (max-width: 768px) {
+  .adaptive {
+    width: 480px;
+  }
+
+}
+@media (max-width: 480px) {
+  .adaptive {
+    width: 320px;
+  }
+
+}
+@media (max-width: 320px) {
+.adaptive {
+    width: 100%;
+  }
+}

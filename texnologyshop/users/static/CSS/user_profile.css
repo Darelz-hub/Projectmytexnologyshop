@@ -1,0 +1,56 @@
+aside {
+    padding: 10px;
+    width: 200px;
+    float: left;
+    height: 1200px;
+   }
+.adaptive{
+width: 1200px;
+height: 100%;
+margin: auto;
+}
+.content{
+margin-left: auto;
+margin-bottom: auto;
+}
+
+
+
+@media (max-width: 1600px) {
+  .adaptive {
+    width: 1200px;
+  }
+
+}
+@media (max-width: 1200px) {
+  .adaptive {
+    width: 1000px;
+  }
+
+
+}
+
+@media (max-width: 1000px) {
+  .adaptive {
+    width: 768px;
+  }
+
+}
+@media (max-width: 768px) {
+  .adaptive {
+    width: 480px;
+  }
+
+}
+@media (max-width: 480px) {
+  .adaptive {
+    width: 320px;
+  }
+
+}
+@media (max-width: 320px) {
+.adaptive {
+    width: 100%;
+  }
+
+}

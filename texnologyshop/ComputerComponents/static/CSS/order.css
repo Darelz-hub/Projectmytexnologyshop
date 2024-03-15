@@ -1,3 +1,7 @@
+body{
+margin: 0;
+padding: 0;
+}
 .tabs {
     position: relative; /* Относительное позиционирование */
    }
@@ -29,6 +33,114 @@
     display: block; /* Показываем активную вкладку */
    }
 
-.button{
-margin-top: 5%;
+.adaptive{
+    width: 1200px;
+    height: 100%;
+    margin: auto;
+}
+.title{
+font-size: 4vw;
+text-align: center;
+}
+#title{
+font-size: 3.5vw;
+}
+.content{
+font-size: 2vw;
+margin: 0;
+padding: 0;
+}
+.button-order{
+width: 200px;
+height: 30px;
+font-size: 1.5vw;
+}
+.button-order:hover{
+box-shadow: 3px 3px 3px #3e3d3d;
+}
+.input-address{
+width: 200px;
+}
+.input-address:focus{
+width: 250px;
+transition: .3s linear;
+}
+@media (max-width: 1600px) {
+  .adaptive {
+    width: 1200px;
+  }
+}
+@media (max-width: 1200px) {
+  .adaptive {
+    width: 1000px;
+  }
+  .content{
+  font-size: 3vw;
+  }
+  .title{
+  font-size: 4vw;
+  }
+  .title{
+  font-size: 3vw;
+  }
+  .button-order{
+  font-size: 2vw;
+  margin-top: 1%;
+  }
+}
+@media (max-width: 1000px) {
+  .adaptive {
+    width: 768px;
+  }
+  .content{
+  font-size: 3vw;
+  }
+  .title{
+  font-size: 5vw;
+  }
+  #title{
+  font-size: 4vw;
+  }
+  .button-order{
+  font-size: 2vw;
+  margin-top: 1%;
+  }
+}
+@media (max-width: 768px) {
+  .adaptive {
+    width: 480px;
+  }
+  .content{
+  font-size: 4vw;
+  }
+  .title{
+  font-size: 6vw;
+  }
+  #title{
+  font-size: 5vw;
+  }
+  .button-order{
+  font-size: 2vw;
+  margin-top: 1%;
+  }
+}
+@media (max-width: 480px) {
+  .adaptive {
+    width: 320px;
+  }
+  .content{
+  font-size: 6vw;
+  }
+  .title{
+  font-size: 7vw;
+  }
+  .button-order{
+  font-size: 3vw;
+  margin-top: 1%;
+  }
+  iframe{
+  width: 250px;
+  height: 250px;
+  }
+
 }

@@ -146,6 +146,7 @@ float: left;
   font-size: 1.5em;
   color: #fff;
 }
+}
 
 @media (max-width: 1000px) {
   header nav ul li a{
@@ -173,7 +174,6 @@ float: left;
   width: 125px;
   height: 35px;
   }
-
 }
 @media (max-width: 480px) {
   header nav ul li a{
