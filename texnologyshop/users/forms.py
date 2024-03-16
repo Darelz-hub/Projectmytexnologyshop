@@ -31,5 +31,3 @@ class RegisterUserForm(UserCreationForm):
         if get_user_model().objects.filter(username=username).exists():
             raise forms.ValidationError('Такой Пользователь уже существует!')
         return username
-
-

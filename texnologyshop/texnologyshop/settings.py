@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ComputerComponents',
     'users',
-    'smart_selects',
-    'analytical',
+    'smart_selects', # Для БД, чтобы соединить несколько таблиц
+    'analytical', #Аналитика
+    'phonenumber_field', #Библиотека для телефона
 ]
 
 MIDDLEWARE = [

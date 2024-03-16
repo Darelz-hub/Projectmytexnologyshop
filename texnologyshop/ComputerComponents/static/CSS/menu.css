@@ -6,6 +6,9 @@ font-family: Inter;
 list-style: none;
 text-decoration: none;
 }
+main{
+margin-bottom: 5%;
+}
 body {
 height: 100%;
 background-size: cover;
@@ -68,7 +71,12 @@ display: initial;
 main{
 margin-top: 5%;
 }
-
+footer{
+background: url('/static/img/LOGO2.png') round space;
+height: 24vw;
+width: 100%;
+background-color: #6DBFCB;
+}
 
 /*field search*/
 
@@ -122,7 +130,33 @@ width: 10%;
 display: block;
 float: left;
 }
-
+@media (max-width: 1600px){
+  header nav ul li a{
+  font-size: 1.5em;
+  font-weight: bold;
+  }
+  header a .logo{
+  width: 250px;
+  height: 250px;
+  }
+  .d7 input{
+  width: 120px;
+  height: 40px;
+  }
+  .d7 input:focus{
+  width: 150px;
+  }
+  .d7 button:before{
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 40px;
+  font-size: 1.5em;
+  color: #fff;
+}
+footer{
+height: 20vw;
+}
+}
 @media (max-width: 1200px) {
   header nav ul li a{
   font-size: 1.4em;
@@ -146,6 +180,9 @@ float: left;
   font-size: 1.5em;
   color: #fff;
 }
+footer{
+height: 30vw;
+}
 }
 
 @media (max-width: 1000px) {
@@ -160,6 +197,9 @@ float: left;
   .d7 input{
   width: 100px;
   }
+  footer{
+height: 35vw;
+}
 }
 @media (max-width: 768px) {
   header nav ul li a{
@@ -174,6 +214,9 @@ float: left;
   width: 125px;
   height: 35px;
   }
+  footer{
+height: 45vw;
+}
 }
 @media (max-width: 480px) {
   header nav ul li a{
@@ -188,5 +231,8 @@ float: left;
   width: 90px;
   height: 35px;
   }
+  footer{
+height: 70vw;
+}
 }
 

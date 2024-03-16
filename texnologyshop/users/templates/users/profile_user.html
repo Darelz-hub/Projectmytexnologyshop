@@ -15,7 +15,12 @@
                 <p>Никнейм: {{user.username}} </p>
                 <p>Имя: {{user.first_name}}</p>
                 <p>Фамилия: {{user.last_name}}</p>
+                <p>Телефон: {{user.profile.telephone}}</p>
                 <p>Email: {{user.email}}</p>
+                <p>Любимая цитата: {{user.profile.quote}}</p>
+                <form method="GET" action="{% url 'users:update_profile' %}">
+                    <button class="button" type="submit">Изменить профиль</button>
+                </form>
             </div>
         </div>
     </main>

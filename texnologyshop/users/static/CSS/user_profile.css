@@ -2,7 +2,7 @@ aside {
     padding: 10px;
     width: 200px;
     float: left;
-    height: 1200px;
+    height: 600px;
    }
 .adaptive{
 width: 1200px;
@@ -10,12 +10,23 @@ height: 100%;
 margin: auto;
 }
 .content{
-margin-left: auto;
+margin-left: 300px;
 margin-bottom: auto;
 }
+.content-text{
+font-size: 3.5vw;
+}
+.title{
+text-align: center;
+font-size: 4vw;
+}
+.button{
+margin-top: 2%;
+font-size: 3vw;
+}
+.button:hover{
 
-
-
+}
 @media (max-width: 1600px) {
   .adaptive {
     width: 1200px;
