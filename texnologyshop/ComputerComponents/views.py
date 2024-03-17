@@ -212,7 +212,8 @@ class PaymentSuccess(View):
         return render(request, 'computercomponents/payment_success.html')
 
 
-# class PaymentFailed(View):
+
+# class PaymentFailed(View):вы
 #     def get(self, request):
 #         return render(request, 'computercomponents/payment_failed.html')
 
