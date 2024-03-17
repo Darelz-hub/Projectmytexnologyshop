@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '/CSS/user_profile_update.css' %}">
+</head>
+<body>
+    <main>
+            <form class="form-update" method="POST" action="{% url 'users:update_profile' %}">
+                {% csrf_token %}
+                <h1 class="title">Изменение профиля</h1>
+                <div class="content-text">
+                    <label for="username">Никнейм: <input type="text" name="username" id="username" value="{{user.username}}" required></label>
+
+                    <label for="email">Email: <input type="email" name="email" id="email" value="{{user.email}}" required> </label>
+
+                    <label for="telephone">Телефон +7xxxxxxxxx: <input type="email" name="email" id="email" value="{{user.profile.telephone}}" required> </label>
+
+                    <label for="first_name">Имя: <input type="text" name="first_name" id="first_name" value="{{user.first_name}}"> </label>
+
+                    <label for="last_name">Фамилия: <input type="text" name="last_name" id="last_name" value="{{user.last_name}}"></label>
+
+                    <label for="quote">Любимая цитата: <input type="text" name="quote" id="quote" value="{{user.profile.quote}}"></label>
+
+                    <div class="button">
+                    <button class="submit" type="submit">Изменить</button> <button class="submit" onclick="{% url 'users:profile' %}"> Отменить </button>
+                    </div>
+                    </div>
+            </form>
+    </main>
+</body>
+</html>
