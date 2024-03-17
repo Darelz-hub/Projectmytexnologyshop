@@ -1,0 +1,63 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+<div class="adaptive">
+<div class="push-sms-wrapper">
+    <div class="push-sms">Товар успешно добавлен!</div>
+</div>
+<main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'js/AddProductToBasket.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/CSS/mainstyle.css'%}">
+
+    {% for product in page_obj %}
+                            <div class="content">
+                                    <div class="border-padding">
+                                        <h1 class="content-title">{{product.name_ru}}</h1>
+                                        {% if product.image %}
+                                            <img class="IMAGE" src="{{product.image.url}}" alt="this is trabl ">
+                                        {% else %}
+                                            <img class="IMAGE" src="{% static '../img/placeholder.png' %}" alt="placeholder">
+                                        {% endif %}
+                                        <p class="content-text">{{product.content}}</p>
+                                        {% for count in counts %}
+                                            {% if count.id_product_id == product.id %}
+                                                <p class="count"> В наличии: {{count.count_product}}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div>
+                                            {% if user.is_authenticated %}
+                                                <div class="buy">
+                                                {% csrf_token %}
+                                                    <p class="price">Цена:{{product.price}}</p>
+                                                    <button type="submit" class="button-add-product"  data-product_id={{product.id}}> В корзину </button>
+                                                </div>
+                                            {% else %}
+                                            <form class="buy" method="POST" action="{% url 'users:login' %}">
+                                                {% csrf_token %}
+                                                <p class="price">Цена:{{product.price}}</p>
+                                                <button class="button-buy"> В корзину</button>
+                                            </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                            </div>
+        {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1&search_products={{search_products}}">  &laquo; </a>
+                <a href="?page={{ page_obj.previous_page_number }}&&search_products={{search_products}}"> &#8249; </a>
+            {% endif %}
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&search_products={{search_products}}"> &#8250; </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&search_products={{search_products}}">  &raquo; </a>
+            {% endif %}
+        </span>
+    </div>
+</main>
+</div>
+{% endblock %}

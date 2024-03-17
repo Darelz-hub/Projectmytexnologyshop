@@ -115,7 +115,7 @@ width: 1200px;
 height: 100%;
 margin: auto;
 }
-@media (max-width: 1600px) {
+@media (max-width: 2560px) {
   .adaptive {
     width: 1200px;
   }
@@ -130,7 +130,7 @@ margin: auto;
   height: 30vw;
   }
   .content-text{
-  font-size: 2.9vw;
+  font-size: 2.5vw;
   }
   .count{
   font-size: 3vw

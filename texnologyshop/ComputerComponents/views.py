@@ -61,7 +61,7 @@ class Products(View): # получение товара по категория�
        paginator = Paginator(products, 3)  # Показывать по 3 объектов на странице
        page_number = request.GET.get('page')
        page_obj = paginator.get_page(page_number)
-       data = {'products': products, 'counts': counts, 'title': title, 'page_obj': page_obj}
+       data = {'counts': counts, 'title': title, 'page_obj': page_obj}
        return render(request, 'computercomponents/products.html', data)
 
 class ProductsSubcategory(View): # класс для получения продуктов по подкатегориям
@@ -80,15 +80,13 @@ class Baskets(View): # отображение страницы корзины
     def get(self, request):
         baskets = Basket.objects.all().filter(user_id=request.user.id)
         counts = Product_Stock.objects.all()
-        return render(request, 'computercomponents/basket.html', {'baskets': baskets, 'counts': counts})
+        data = {'baskets': baskets, 'counts': counts}
+        return render(request, 'computercomponents/basket.html', data)
 
 class BasketAddProduct(View): # добавление товара в карзину
     def post(self, request):
         if request.method == 'POST':
             product_id = request.POST.get('product_id')
-            print('--------------------------------')
-            print(product_id)
-            print('--------------------------------')
             product = Product.objects.get(id=int(product_id))
             baskets = Basket.objects.filter(user=request.user, product=product)
             if not baskets.exists():
@@ -114,7 +112,8 @@ class FormOrder(View):
     def post(self, request):
         basket_id = request.POST.get('basket_id')
         basket = Basket.objects.get(id=basket_id)
-        return render(request, 'computercomponents/order.html', {'basket': basket})
+        data = {'basket': basket}
+        return render(request, 'computercomponents/order.html', data)
 
 class CreateOrder(View):
     def post(self, request):
@@ -133,7 +132,8 @@ class CreateOrder(View):
                                          address=address)
             order_id = order.id
             order_products = OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
-            return render(request, 'computercomponents/ceal.html', {'order': order, 'order_products': order_products})
+            data = {'order': order, 'order_products': order_products}
+            return render(request, 'computercomponents/ceal.html', data)
 class OrderProductsDelete(View):
     def post(self, request):
         order_id = request.POST.get('order_id')
@@ -172,6 +172,8 @@ class CealOrder(View):
                 idempotency_key=idempotence_key)
         confirmation_url = payment.confirmation.confirmation_url
         return redirect(confirmation_url)
+
+        # Разобраться, как работает переадрисация в оплате
         # request.build_absolute_uri(reverse(payment_success / f'payment_success', kwargs={'order_id': order_id,
         #                                                                                  'product_id': product_id,
         #                                                                                  'quantity': quantity})),
@@ -236,6 +238,17 @@ class PageOrder(View):
         data = {'orders': orders}
         return render(request, 'computercomponents/pageorder.html', data)
 
+class SearchProducts(View):
+    def get(self, request):
+        search_products = request.GET.get("search_products")
+        search_products = search_products[:0] + search_products[0 + 1:] # удаляет первую букву из строки
+        products = Product.objects.filter(name_ru__icontains=search_products)
+        counts = Product_Stock.objects.all()
+        paginator = Paginator(products, 3)  # Показывать по 3 объектов на странице
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        data = {'counts': counts,  'page_obj': page_obj, 'search_products': search_products}
+        return render(request, 'computercomponents/search_products.html', data)
 
 # class Developers(View):
 #     def get(self, request):

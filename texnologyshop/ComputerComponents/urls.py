@@ -19,4 +19,5 @@ urlpatterns = [
     path('delivery/', components.PageDelivery.as_view(), name='delivery'),
     path('page_order/', components.PageOrder.as_view(), name='page_order'),
     path('order_products_delete/', components.OrderProductsDelete.as_view(), name='order_products_delete'),
+    path('search_products/', components.SearchProducts.as_view(), name='search')
 ]

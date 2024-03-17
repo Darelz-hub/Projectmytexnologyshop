@@ -20,6 +20,9 @@ font-size: 3vw;
 margin-top: 2%;
 margin-right: 10px;
 }
+.submit:hover{
+box-shadow: 5px 5px 5px black;
+}
 .form-update{
 border-top: 1px solid black;
 background: #6DBFCB;

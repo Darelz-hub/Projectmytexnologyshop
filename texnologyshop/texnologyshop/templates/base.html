@@ -51,9 +51,9 @@
                 </li>
                 <li><a href="{% url 'document' %}">Полезная информация</a></li>
                 <li><a href="#">О нас</a></li>
-                <li><form class="d7">
+                <li><form class="d7" method="GET" action="{% url 'search' %}">
                       {% csrf_token %}
-                      <input type="text" name="search_field" placeholder="Search">
+                      <input type="text" name="search_products" placeholder="Search">
                       <button type="submit"></button>
                 </form>
                 </li>
