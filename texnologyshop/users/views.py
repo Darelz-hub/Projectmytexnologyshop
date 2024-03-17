@@ -19,8 +19,7 @@ class RegistrationUser(CreateView):
 
 class ProfileUser(View):
     def get(self, request):
-        user = User.objects.get(id=request.user.id)
-        return render(request, 'users/profile_user.html', {'user': user})
+        return render(request, 'users/profile_user.html')
 
 class UpdateProfileUser(View):
     def get(self, request):

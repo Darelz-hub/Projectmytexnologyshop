@@ -1,10 +1,18 @@
+main{
+margin-bottom: 20%;
+}
 aside {
     padding: 10px;
-    width: 200px;
+    width: 300px;
     float: left;
     height: 600px;
+    font-size: 2vw;
    }
-.adaptive{
+a{
+color: black;
+font-weight: bold;
+}
+.adaptive-main{
 width: 1200px;
 height: 100%;
 margin: auto;
@@ -21,20 +29,23 @@ text-align: center;
 font-size: 4vw;
 }
 .button{
-margin-top: 2%;
+margin-top: 3%;
 font-size: 3vw;
 }
 .button:hover{
-
+box-shadow: 5px 5px 5px black;
+}
+main div div p{
+padding-top: 30px;
 }
 @media (max-width: 1600px) {
-  .adaptive {
+  .adaptive-main {
     width: 1200px;
   }
 
 }
 @media (max-width: 1200px) {
-  .adaptive {
+  .adaptive-main {
     width: 1000px;
   }
 
@@ -42,26 +53,39 @@ font-size: 3vw;
 }
 
 @media (max-width: 1000px) {
-  .adaptive {
+  .adaptive-main {
     width: 768px;
   }
-
+   .content-text{
+   font-size: 4vw;
+   }
+   .title{
+   font-size: 4vw;
+   }
+   .button{
+   font-size: 4vw;
+   }
+   aside{
+   font-size: 3vw;
+   }
 }
 @media (max-width: 768px) {
-  .adaptive {
+  .adaptive-main {
     width: 480px;
   }
-
-}
-@media (max-width: 480px) {
-  .adaptive {
-    width: 320px;
+  .content-text{
+  font-size: 4vw;
   }
-
-}
-@media (max-width: 320px) {
-.adaptive {
-    width: 100%;
+  aside{
+  width: 200px;
+  font-size: 3vw;
+  padding: 0;
+  margin-top: 10px;
   }
-
+  .content{
+  margin-left: 210px;
+  }
+  .title{
+  font-size: 4vw;
+  }
 }

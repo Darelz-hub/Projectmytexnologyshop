@@ -1,16 +1,17 @@
 {% extends 'base.html'%}
 {% block content %}
 {% load static %}
-<div class="adaptive">
+<div class="adaptive-main">
     <main>
         <link rel="stylesheet" href="{% static '/CSS/user_profile.css' %}">
 <!--        Боковое меню-->
         <aside>
+            <h2>Меню</h2>
             <p><a href="{% url 'delivery' %}">Ваши заказы </a></p>
             <p><a href="{% url 'page_order' %}">Ожидают оплаты</a></p>
         </aside>
         <div class="content">
-            <h1 class="title"> Ваш профиль</h1>
+            <h1 class="title"> Ваш профиль, {{user.username}}</h1>
             <div class="content-text">
                 <p>Никнейм: {{user.username}} </p>
                 <p>Имя: {{user.first_name}}</p>
