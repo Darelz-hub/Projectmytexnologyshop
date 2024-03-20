@@ -25,6 +25,11 @@ urlpatterns = [
     path('users/', include('users.urls')),
     re_path(r'^chaining/', include('smart_selects.urls')),
 ]
+# заголовок в админ панели
+admin.site.site_header = 'Администрирование TexnoShop'
 
+#изменение заголовка сайта
+#admin.site.index_title = ''
+# занесение путя к картинки в бд
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
