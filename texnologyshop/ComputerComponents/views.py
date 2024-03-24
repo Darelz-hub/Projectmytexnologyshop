@@ -7,16 +7,15 @@ from django.views.generic.edit import DeleteView
 from ComputerComponents.models import (Product, Product_Stock, Category, SubCategory, Basket, Order, OrderProducts,
                                        Delivery,DeliveryStatus)
 from django.conf import settings
-from yookassa import Configuration, Payment
-import uuid
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.db.models import Prefetch
 from django.http import JsonResponse
-
-
-Configuration.account_id = settings.YOOKASSA_SHOP_ID
-Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
+# юкасса
+from yookassa import Configuration, Payment
+import uuid
+Configuration.account_id = settings.YOOKASSA_SHOP_ID # id магазина
+Configuration.secret_key = settings.YOOKASSA_SECRET_KEY # id секретного ключа
 
 class MainPage(View): # основная страница при загрузке сайта
     def get(self, request):
@@ -31,12 +30,12 @@ class MainPage(View): # основная страница при загрузк�
         return render(request,'computercomponents/main.html', data)
 
 
-class DocumentationMain(View): # основная страница
+class DocumentationMain(View): # основная страница документации, где мы выбираем о чём хотим узнать
     def get(self, request):
         return render(request, 'computercomponents/documentationmain.html')
 
 
-class Documentation(View): #
+class Documentation(View): # страница с информацией о компьютерном  компоненте
     def post(self, request):
         # ваша логика для получения данных о фильме из API
         if request.method == 'POST':
@@ -108,14 +107,14 @@ class BasketDeleteProduct(View):
 
 
 
-class FormOrder(View):
+class FormOrder(View): # форма оформления заказа - потом переходим на станицу создангия заказа
     def post(self, request):
         basket_id = request.POST.get('basket_id')
         basket = Basket.objects.get(id=basket_id)
         data = {'basket': basket}
         return render(request, 'computercomponents/order.html', data)
 
-class CreateOrder(View):
+class CreateOrder(View): # создание заказа
     def post(self, request):
         quantity = int(request.POST.get('quantity'))
         product_id = request.POST.get('product_id')
@@ -134,7 +133,7 @@ class CreateOrder(View):
             order_products = OrderProducts.objects.create(id_product=Product.objects.get(id=product_id), id_order=Order.objects.get(id=order_id), counter=quantity, real_price=real_price)
             data = {'order': order, 'order_products': order_products}
             return render(request, 'computercomponents/ceal.html', data)
-class OrderProductsDelete(View):
+class OrderProductsDelete(View): # удаление заказа
     def post(self, request):
         order_id = request.POST.get('order_id')
         order_product_id = request.POST.get('order_product_id')
@@ -143,7 +142,7 @@ class OrderProductsDelete(View):
         order_product.delete()
         order.delete()
         return HttpResponseRedirect(reverse_lazy('main_page'))
-class CealOrder(View):
+class CealOrder(View): # оплата заказа
     def post(self, request):
         # получение данных
         product_id = request.POST.get('product_id')
@@ -193,7 +192,7 @@ class CealOrder(View):
 
 
 
-class PaymentSuccess(View):
+class PaymentSuccess(View): # успешная оплата
     def get(self, request):
         product_id = request.GET.get('product_id')
         order_id = request.GET.get('order_id')
@@ -218,13 +217,13 @@ class PaymentSuccess(View):
 #         return render(request, 'computercomponents/payment_failed.html')
 
 
-class PageDelivery(View):
+class PageDelivery(View): # страница доставки
     def get(self, request):
         deliverys = Delivery.objects.all().filter(id_user=request.user)
         data = {'deliverys': deliverys}
         return render(request, 'computercomponents/delivery.html', data)
 
-class PageOrder(View):
+class PageOrder(View): # страница заказа
     def get(self, request):
         orders = Order.objects.filter(
             id_user=request.user,
@@ -239,7 +238,7 @@ class PageOrder(View):
         data = {'orders': orders}
         return render(request, 'computercomponents/pageorder.html', data)
 
-class SearchProducts(View):
+class SearchProducts(View): # поисковик
     def get(self, request):
         search_products = request.GET.get("search_products")
         search_products = search_products[:0] + search_products[0 + 1:] # удаляет первую букву из строки

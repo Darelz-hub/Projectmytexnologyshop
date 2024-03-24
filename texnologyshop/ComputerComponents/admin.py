@@ -61,6 +61,6 @@ class DeliveryStatusAdmin(admin.ModelAdmin):
 
 @admin.register(Delivery)
 class DeliveryAdmin(admin.ModelAdmin):
-    list_display = ('id_user', 'id_order', 'id_order_products', 'status_delivery',
-                    'delivery_date', 'delivery_closing_date', 'time_created', 'time_updated')
+    list_display = ('id_user', 'id_order', 'status_delivery', 'delivery_date', 'delivery_closing_date', 'id_order_products',
+                     'time_created', 'time_updated')
     ordering = ['id_order', 'id_user', 'status_delivery']

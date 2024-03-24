@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 
 
-class LoginFormUser(AuthenticationForm):
+class LoginFormUser(AuthenticationForm): # форма авторизации
     username = forms.CharField(label='Логин', widget=forms.TextInput())
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput())
 
@@ -11,7 +11,7 @@ class LoginFormUser(AuthenticationForm):
         model = get_user_model()
         fields = ['username', 'password']
 
-class RegisterUserForm(UserCreationForm):
+class RegisterUserForm(UserCreationForm): # форма регистрации
     username = forms.CharField(label='Логин', widget=forms.TextInput())
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput())
     password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput())

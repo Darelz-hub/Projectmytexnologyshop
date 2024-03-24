@@ -75,8 +75,7 @@ class Product(models.Model):  # информация о продукте
         verbose_name_plural = 'Товары'  # множественное число
 
 
-class Product_Stock(
-    models.Model):  # связь двух таблиц, где хранится товар, его информация и количество товара на складе
+class Product_Stock(models.Model):  # связь двух таблиц, где хранится товар, его информация и количество товара на складе
     count_product = models.PositiveIntegerField(verbose_name='Количество товара')
     id_stock = models.ForeignKey(Stock, on_delete=models.CASCADE, verbose_name="id_склада")
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="id_товара")
@@ -141,7 +140,7 @@ class OrderProducts(models.Model):  # информаци о товаре
         verbose_name_plural = 'Информация о товаре в заказе'  # множественное число
 
 
-class DeliveryStatus(models.Model):
+class DeliveryStatus(models.Model): # статус доставки
     name = models.CharField(max_length=255, unique=True, verbose_name='Статус')
     name_ru = models.CharField(max_length=255, unique=True, verbose_name='Статус на русском')
 
@@ -153,7 +152,7 @@ class DeliveryStatus(models.Model):
         verbose_name_plural = 'Статус доставки'  # множественное число
 
 
-class Delivery(models.Model):
+class Delivery(models.Model): # доставка
     id_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="id_пользователя")
     id_order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="id_заказа")
     id_order_products = models.ForeignKey(OrderProducts, on_delete=models.CASCADE,
@@ -169,4 +168,4 @@ class Delivery(models.Model):
         verbose_name_plural = 'Доставка'
 
     def __str__(self):
-        return self.id_order.id
+        return f'Заказ № {str(self.id_order.id)}'

@@ -6,25 +6,24 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.models import User
 # Create your views here.
 from .forms import *
-class LoginUser(LoginView):
+class LoginUser(LoginView): # авторизация
     form_class = LoginFormUser
     template_name = 'users/login.html'
 
 
-class RegistrationUser(CreateView):
+class RegistrationUser(CreateView): # форма регистрации
     form_class = RegisterUserForm
     template_name = 'users/registration.html'
     success_url = reverse_lazy('users:login')
 
 
-class ProfileUser(View):
+class ProfileUser(View): # страница профиля юзера
     def get(self, request):
         return render(request, 'users/profile_user.html')
 
-class UpdateProfileUser(View):
+class UpdateProfileUser(View): #  станица обновления профиля юзера
     def get(self, request):
-        user = User.objects.get(username=request.user)
-        return render(request, 'users/profile_user_update.html', {'user': user})
+        return render(request, 'users/profile_user_update.html')
     def post(self, request):
         # Костыльный метод
         user = User.objects.get(id=request.user.id)
